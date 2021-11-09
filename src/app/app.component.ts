@@ -1,6 +1,9 @@
 import { Component, ComponentFactoryResolver, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
+import { DemandeAutreComponent } from './demande-autre/demande-autre.component';
 import { DemandeFlashComponent } from './demande-flash/demande-flash.component';
+import { DemandePeintureComponent } from './demande-peinture/demande-peinture.component';
+import { DemandePersonnelleComponent } from './demande-personnelle/demande-personnelle.component';
 import { DemandeComponent } from './demande.component';
 import { FormDirective } from './form.directive';
 
@@ -50,8 +53,22 @@ export class AppComponent {
   save() {
     const viewContainerRef = this.demandeForm.viewContainerRef;
     viewContainerRef.clear();
-    let demandeComponent = this.componentFactoryResolver.resolveComponentFactory(DemandeFlashComponent);
-   
+    let demandeComponent = null;
+   switch(this.form.get("demande").value) {
+     case "personnelle" :
+        demandeComponent = this.componentFactoryResolver.resolveComponentFactory(DemandePersonnelleComponent);
+        break;
+     case "flash" :
+        demandeComponent = this.componentFactoryResolver.resolveComponentFactory(DemandeFlashComponent);
+        break;
+     case "peinture" :
+        demandeComponent = this.componentFactoryResolver.resolveComponentFactory(DemandePeintureComponent);
+        break;
+      default:
+        demandeComponent = this.componentFactoryResolver.resolveComponentFactory(DemandeAutreComponent);
+        break;
+   }
+
     const componentRef = viewContainerRef.createComponent<DemandeComponent>(demandeComponent);
     componentRef.instance.form = this.form;
   }

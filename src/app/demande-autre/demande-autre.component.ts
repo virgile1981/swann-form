@@ -3,11 +3,11 @@ import { FormGroup } from '@angular/forms';
 import { DemandeComponent } from '../demande.component';
 
 @Component({
-  selector: 'app-demande-peinture',
-  templateUrl: './demande-peinture.component.html',
-  styleUrls: ['./demande-peinture.component.scss']
+  selector: 'app-demande-autre',
+  templateUrl: './demande-autre.component.html',
+  styleUrls: ['./demande-autre.component.scss']
 })
-export class DemandePeintureComponent implements DemandeComponent {
+export class DemandeAutreComponent implements DemandeComponent {
 
   form: FormGroup;
 
