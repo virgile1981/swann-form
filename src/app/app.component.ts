@@ -1,5 +1,8 @@
-import { Component, ElementRef, ViewChild } from '@angular/core';
+import { Component, ComponentFactoryResolver, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
+import { DemandeFlashComponent } from './demande-flash/demande-flash.component';
+import { DemandeComponent } from './demande.component';
+import { FormDirective } from './form.directive';
 
 @Component({
   selector: 'app-root',
@@ -8,7 +11,7 @@ import { FormBuilder, Validators } from '@angular/forms';
 })
 export class AppComponent {
 
-
+  @ViewChild(FormDirective, {static: true}) demandeForm!: FormDirective;
   @ViewChild("autreAgeButton") autreAgeButton: ElementRef;
   @ViewChild("autreDemandeButton") autreDemandeButton: ElementRef;
 
@@ -19,16 +22,7 @@ export class AppComponent {
     demande: [null,Validators.required]
     });
 
-  constructor(private fb: FormBuilder) {}
-
-  public handleChange() {
-    if(this.form.get("majeur").value == "autre") {
-      console.log("on arrive dans l'autre");
-    } else {
-      console.log("on est pas dans l'autre");
-    }
-    console.log(this.autreAgeButton.nativeElement.checked);
-  }
+  constructor(private fb: FormBuilder, private componentFactoryResolver: ComponentFactoryResolver) {}
 
   /**
    * 
@@ -52,6 +46,13 @@ export class AppComponent {
     return false;
   }
 
+
   save() {
+    const viewContainerRef = this.demandeForm.viewContainerRef;
+    viewContainerRef.clear();
+    let demandeComponent = this.componentFactoryResolver.resolveComponentFactory(DemandeFlashComponent);
+   
+    const componentRef = viewContainerRef.createComponent<DemandeComponent>(demandeComponent);
+    componentRef.instance.form = this.form;
   }
 }
