@@ -4,7 +4,7 @@
           <div class="col-lg-8 col-sm-12 p-3">
             <div class="form-group">
                 <label class="form-control-label">Adresse e-mail</label>
-                <input class="form-control" name="nom" id="field_nom" formControlName="email" />
+                <input class="form-control" name="email" id="field_email" formControlName="email" required/>
               </div>
           </div>
         </div>
@@ -12,16 +12,54 @@
           <div class="col-lg-8 col-sm-12 p-3">
             <div class="form-group">
                 <label class="form-control-label">Nom et prénom</label>
-                <input class="form-control" name="nom" id="field_nom" formControlName="name" />
+                <input class="form-control" name="nom" id="field_nom" formControlName="nom" required />
               </div>
           </div>
         </div>
+        
         <div class="row form-panel justify-content-center mt-2">
           <div class="col-lg-8 col-sm-12 p-3">
             <div class="form-group">
-                <label class="form-control-label">Es-tu majeur.e</label>
-                <input class="form-control" name="nom" id="field_nom" formControlName="majeur" />
+                <label class="form-control-label">Es-tu majeur.e ?</label>
+                <div class="form-check">
+                  <input class="form-check-input" id="majeur-non" type="radio" value="non" name="majeur" formControlName="majeur" required>
+                  <label class="form-check-label" for="non">Non</label>
+               </div>
+            
+               <div class="form-check">
+                  <input class="form-check-input" id="majeur-oui" type="radio" value="oui" name="majeur"  formControlName="majeur" required>
+                  <label class="form-check-label" for="oui">Oui</label>
+               </div>
               </div>
           </div>
         </div>
+
+        <div class="row form-panel justify-content-center mt-2">
+          <div class="col-lg-8 col-sm-12 p-3">
+            <div class="form-group">
+                <label class="form-control-label">Quelle est la nature de ta demande ?</label>
+                <div class="form-check">
+                  <input class="form-check-input" id="personnel" type="radio" value="personnel" name="demande" formControlName="demande" required>
+                  <label class="form-check-label" for="personnel">Commander un tatouage personnel</label>
+               </div>
+            
+               <div class="form-check">
+                  <input class="form-check-input" id="flash" type="radio" value="flash" name="demande"  formControlName="demande" required>
+                  <label class="form-check-label" for="flash">Réserver un tatouage flash (visible sur Instagram ou Facebook)</label>
+               </div>
+
+                <div class="form-check">
+                  <input class="form-check-input" id="peinture" type="radio" value="peinture" name="demande"  formControlName="demande" required>
+                  <label class="form-check-label" for="peinture">Réaliser un dessin / peinture</label>
+                </div>
+
+                <div class="form-check">
+                  <input class="form-check-input" id="autre" type="radio" value="autre" name="demande"  formControlName="demande" required>
+                  <label class="form-check-label" for="autre">Autre</label>
+                </div>
+              </div>
+          </div>
+        </div>
+        <button type="submit" [disabled]="!form.valid">Envoyer</button>
     </form>
+    {{form.getRawValue() | json}}
