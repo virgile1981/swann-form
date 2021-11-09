@@ -9,6 +9,8 @@ import { DemandePersonnelleComponent } from './demande-personnelle/demande-perso
 import { DemandePeintureComponent } from './demande-peinture/demande-peinture.component';
 import { FormDirective } from './form.directive';
 import { DemandeAutreComponent } from './demande-autre/demande-autre.component';
+import { FileUploadComponent } from './utils/fileUpload.component';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -17,12 +19,15 @@ import { DemandeAutreComponent } from './demande-autre/demande-autre.component';
     DemandePersonnelleComponent,
     DemandePeintureComponent,
     DemandeAutreComponent,
+    FileUploadComponent,
     FormDirective
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
-    FormsModule,ReactiveFormsModule
+    FormsModule,
+    ReactiveFormsModule,
+    HttpClientModule
   ],
   providers: [],
   bootstrap: [AppComponent]

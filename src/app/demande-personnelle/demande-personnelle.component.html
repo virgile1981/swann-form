@@ -46,7 +46,7 @@
                     Montre moi en image ce que tu aimerais, ou des idées qui t’inspirent : 
                     <p class="fw-lighter">Attention, je peux m’inspirer d’une photo, mais je ne refais pas à l’identique un tatouage déjà existant. Je souhaite garantir à chacun de mes travaux un caractère unique. Tes images de référence me permettront de mieux comprendre ce que tu recherches, et le style artistique que tu aimes.  </p>
                 </label>
-              <input class="form-control" type="file" name="imageInspiration" id="field_imageInspiration" formControlName="imageInspiration" />
+              <input class="form-control" type="file" name="imageInspiration"  id="field_imageInspiration"  (change)="uploadImageInspiration($event)"/>
             </div>
         </div>
       </div>
@@ -58,7 +58,7 @@
                     A quel emplacement souhaites-tu faire ton tatouage ? 
                     <p class="fw-lighter">Envoie-moi une photo de la zone de ton corps, que tu auras entourée sur ton téléphone. La photo doit être de bonne qualité, avec un bon éclairage et bien prise de face. Si tu hésites entre plusieurs zones, envoie moi plusieurs photos.</p>
                 </label>
-              <input class="form-control" type="file" name="imageEmplacement" id="field_imageEmplacement" formControlName="imageEmplacement" />
+              <input class="form-control" type="file" name="imageEmplacement" id="field_imageEmplacement"  (change)="uploadImageEmplacement($event)"/>
             </div>
         </div>
       </div>
@@ -124,10 +124,13 @@
       </div>
 
       {{form.value | json}}
-
+      <div class="progress form-group" *ngIf="progress > 0">
+        <div class="progress-bar progress-bar-striped bg-success" role="progressbar" [style.width.%]="progress">
+        </div>
+    </div>
     <div class="row form-panel justify-content-center mt-2">
       <div class="col-lg-8 col-sm-12 p-3">
-        <button  class="btn btn-primary" type="submit" [disabled]="!form.valid">Suivant</button>
+        <button  class="btn btn-primary" type="submit" >Enregistrer</button>
       </div>
     </div>
 </form>

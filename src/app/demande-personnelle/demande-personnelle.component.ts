@@ -1,6 +1,8 @@
+import { HttpEvent, HttpEventType } from '@angular/common/http';
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { DemandeComponent } from '../demande.component';
+import { FormService } from '../form.service';
 
 @Component({
   selector: 'app-demande-personnelle',
@@ -11,12 +13,11 @@ export class DemandePersonnelleComponent implements DemandeComponent {
 
   villes: string[] = ["Paris","Toulouse","Nantes","Brétignolles-sur-Mer"];
   form: FormGroup;
- 
+  progress: number = 0;
+
   @ViewChild("autreVilleButton") autreVilleButton: ElementRef;
   @ViewChild("autreBudgetButton") autreBudgetButton: ElementRef;
   @ViewChild("autrePlanificationButton") autrePlanificationButton: ElementRef;
-
-
 
   demandeForm = this.fb.group({
     descriptif: '',
@@ -30,9 +31,10 @@ export class DemandePersonnelleComponent implements DemandeComponent {
   });
 
 
- constructor(private fb: FormBuilder) {}
+ constructor(private fb: FormBuilder,private formService: FormService) {}
 
   ngOnInit(): void {
+    //On joint au premier formulaire le formulaire de demande personnelle que l'utilisateur s'apprête à remplir
     this.form.addControl("demandeForm",this.demandeForm);
   }
 
@@ -65,5 +67,44 @@ export class DemandePersonnelleComponent implements DemandeComponent {
     return false;
   }
 
-save(){}
+  uploadImageEmplacement(event) {
+    const file = (event.target as HTMLInputElement).files[0];
+    this.demandeForm.patchValue({
+      imageEmplacement: file
+    });
+    this.demandeForm.get('imageEmplacement').updateValueAndValidity()
+  }
+
+  uploadImageInspiration(event) {
+    const file = (event.target as HTMLInputElement).files[0];
+    this.demandeForm.patchValue({
+      imageEmplacement: file
+    });
+    this.demandeForm.get('imageEmplacement').updateValueAndValidity()
+  }
+
+  save(){
+    console.log(this.form.value);
+    this.formService.save(this.form.value).subscribe((event: HttpEvent<any>) => {
+      switch (event.type) {
+        case HttpEventType.Sent:
+          console.log('Request has been made!');
+          break;
+        case HttpEventType.ResponseHeader:
+          console.log('Response header has been received!');
+          break;
+        case HttpEventType.UploadProgress:
+          this.progress = Math.round(event.loaded / event.total * 100);
+          console.log(`Uploaded! ${this.progress}%`);
+          break;
+        case HttpEventType.Response:
+          console.log('User successfully created!', event.body);
+          setTimeout(() => {
+            this.progress = 0;
+          }, 1500);
+
+      }
+    });
+    
+  }
 }
