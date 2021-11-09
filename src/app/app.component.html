@@ -22,13 +22,13 @@
             <div class="form-group">
                 <label class="form-control-label">Es-tu majeur.e ?</label>
                 <div class="form-check">
-                  <input class="form-check-input" id="majeur-non" type="radio" value="non" name="majeur" formControlName="majeur" required>
-                  <label class="form-check-label" for="non">Non</label>
-               </div>
-            
-               <div class="form-check">
-                  <input class="form-check-input" id="majeur-oui" type="radio" value="oui" name="majeur"  formControlName="majeur" required>
+                  <input class="form-check-input" id="majeur_oui" type="radio" value="oui" formControlName="majeur" required>
                   <label class="form-check-label" for="oui">Oui</label>
+               </div>
+                <div class="form-check">
+                  <input #autreAgeButton class="form-check-input" id="majeur_non" type="radio" value="" formControlName="majeur" required>
+                  <label class="form-check-label" for="autre">Autre</label>
+                  <input class="form-control" formControlName="majeur" required [attr.disabled]="mineurButtonSelected() ? null : 'disabled'">
                </div>
               </div>
           </div>
@@ -54,12 +54,17 @@
                 </div>
 
                 <div class="form-check">
-                  <input class="form-check-input" id="autre" type="radio" value="autre" name="demande"  formControlName="demande" required>
+                  <input #autreDemandeButton class="form-check-input" id="autre" type="radio" value="" name="demande"  formControlName="demande" required>
                   <label class="form-check-label" for="autre">Autre</label>
+                  <input id="texte_autre" class="form-control" formControlName="demande" [attr.disabled]="autreDemandeButtonSelected() ? null : 'disabled'">
                 </div>
               </div>
           </div>
         </div>
-        <button type="submit" [disabled]="!form.valid">Envoyer</button>
+        <div class="row form-panel justify-content-center mt-2">
+          <div class="col-lg-8 col-sm-12 p-3">
+            <button  class="btn btn-primary" type="submit" [disabled]="!form.valid">Suivant</button>
+          </div>
+        </div>
     </form>
     {{form.getRawValue() | json}}
