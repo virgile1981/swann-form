@@ -12,11 +12,12 @@ import { FormDirective } from './form.directive';
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss']
 })
-export class AppComponent {
+export class AppComponent implements OnInit{
 
   @ViewChild(FormDirective, {static: true}) demandeForm!: FormDirective;
   @ViewChild("autreAgeButton") autreAgeButton: ElementRef;
   @ViewChild("autreDemandeButton") autreDemandeButton: ElementRef;
+  @ViewChild("initForm") initForm: ElementRef;
 
   form = this.fb.group({
     nom: ['',Validators.required],
@@ -25,7 +26,13 @@ export class AppComponent {
     demande: [null,Validators.required]
     });
 
+  isInitFormVisible: boolean = true;
+
   constructor(private fb: FormBuilder, private componentFactoryResolver: ComponentFactoryResolver) {}
+  ngOnInit(): void {
+    this.form.setValue({demande: "personnelle",nom:"virgile",email:"bourse.virgile@gmail.com",majeur: "oui"});
+    this.save();
+  }
 
   /**
    * 
@@ -54,6 +61,7 @@ export class AppComponent {
     const viewContainerRef = this.demandeForm.viewContainerRef;
     viewContainerRef.clear();
     let demandeComponent = null;
+    this.isInitFormVisible = false;
    switch(this.form.get("demande").value) {
      case "personnelle" :
         demandeComponent = this.componentFactoryResolver.resolveComponentFactory(DemandePersonnelleComponent);

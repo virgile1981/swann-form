@@ -1,5 +1,5 @@
 
-    <form  name="form" [formGroup]="form" (ngSubmit)="save()">
+    <form *ngIf="isInitFormVisible"  [formGroup]="form" (ngSubmit)="save()" >
         <div class="row form-panel justify-content-center mt-2">
           <div class="col-lg-8 col-sm-12 p-3">
             <div class="form-group">
