@@ -120,6 +120,11 @@ export class DemandePersonnelleComponent implements DemandeComponent {
   protected createFromForm(): IDemandePersonnelleForm {
     return {
       ...new DemandePersonnelleForm(),
+      nom: this.form.get(['nom'])!.value,
+      email: this.form.get(['email'])!.value,
+      majeur: this.form.get(['majeur'])!.value,
+      demande: this.form.get(['demande'])!.value,
+      
       descriptif: this.demandeForm.get(['descriptif'])!.value,
       ville: this.demandeForm.get(['ville'])!.value,
       idee: this.demandeForm.get(['idee'])!.value,
