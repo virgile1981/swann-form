@@ -1,7 +1,7 @@
 import { HttpEvent, HttpEventType } from '@angular/common/http';
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { DemandeComponent } from '../demande.component';
+import { IDemandeComponent } from '../demande/demande.interface.component';
 import { FormService } from '../services/form.service';
 import { DemandePersonnelleForm, IDemandePersonnelleForm } from '../models/demandePersonnelleForm.model';
 import { DataUtils, FileLoadError } from '../services/data-utils.service';
@@ -11,7 +11,7 @@ import { DataUtils, FileLoadError } from '../services/data-utils.service';
   templateUrl: './demande-personnelle.component.html',
   styleUrls: ['./demande-personnelle.component.scss']
 })
-export class DemandePersonnelleComponent implements DemandeComponent {
+export class DemandePersonnelleComponent implements IDemandeComponent {
 
   villes: string[] = ["Paris","Toulouse","Nantes","Brétignolles-sur-Mer"];
   form: FormGroup;

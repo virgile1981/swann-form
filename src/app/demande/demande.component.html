@@ -1,0 +1,70 @@
+
+    <form *ngIf="isInitFormVisible"  [formGroup]="form" (ngSubmit)="save()" >
+        <div class="row form-panel justify-content-center mt-2">
+          <div class="col-lg-8 col-sm-12 p-3">
+            <div class="form-group">
+                <label class="form-control-label">Adresse e-mail</label>
+                <input class="form-control" name="email" id="field_email" formControlName="email" required/>
+              </div>
+          </div>
+        </div>
+        <div class="row form-panel justify-content-center mt-2">
+          <div class="col-lg-8 col-sm-12 p-3">
+            <div class="form-group">
+                <label class="form-control-label">Nom et prénom</label>
+                <input class="form-control" name="nom" id="field_nom" formControlName="nom" required />
+              </div>
+          </div>
+        </div>
+        
+        <div class="row form-panel justify-content-center mt-2">
+          <div class="col-lg-8 col-sm-12 p-3">
+            <div class="form-group">
+                <label class="form-control-label">Es-tu majeur.e ?</label>
+                <div class="form-check">
+                  <input class="form-check-input" id="majeur_oui" type="radio" value="oui" formControlName="majeur" required>
+                  <label class="form-check-label" for="oui">Oui</label>
+               </div>
+                <div class="form-check">
+                  <input #autreAgeButton class="form-check-input" id="majeur_non" type="radio" value="" formControlName="majeur" required>
+                  <label class="form-check-label" for="autre">Autre</label>
+                  <input class="form-control" formControlName="majeur" required [attr.disabled]="mineurButtonSelected() ? null : 'disabled'">
+               </div>
+              </div>
+          </div>
+        </div>
+
+        <div class="row form-panel justify-content-center mt-2">
+          <div class="col-lg-8 col-sm-12 p-3">
+            <div class="form-group">
+                <label class="form-control-label">Quelle est la nature de ta demande ?</label>
+                <div class="form-check">
+                  <input class="form-check-input" id="personnelle" type="radio" value="personnelle" name="demande" formControlName="demande" required>
+                  <label class="form-check-label" for="personnelle">Commander un tatouage personnel</label>
+               </div>
+            
+               <div class="form-check">
+                  <input class="form-check-input" id="flash" type="radio" value="flash" name="demande"  formControlName="demande" required>
+                  <label class="form-check-label" for="flash">Réserver un tatouage flash (visible sur Instagram ou Facebook)</label>
+               </div>
+
+                <div class="form-check">
+                  <input class="form-check-input" id="peinture" type="radio" value="peinture" name="demande"  formControlName="demande" required>
+                  <label class="form-check-label" for="peinture">Réaliser un dessin / peinture</label>
+                </div>
+
+                <div class="form-check">
+                  <input #autreDemandeButton class="form-check-input" id="autre" type="radio" value="" name="demande"  formControlName="demande" required>
+                  <label class="form-check-label" for="autre">Autre</label>
+                  <input id="texte_autre" class="form-control" formControlName="demande" [attr.disabled]="autreDemandeButtonSelected() ? null : 'disabled'">
+                </div>
+              </div>
+          </div>
+        </div>
+        <div class="row form-panel justify-content-center mt-2">
+          <div class="col-lg-8 col-sm-12 p-3">
+            <button  class="btn btn-primary" type="submit" [disabled]="!form.valid">Suivant</button>
+          </div>
+        </div>
+    </form>
+    <ng-template demandeForm></ng-template>

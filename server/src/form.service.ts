@@ -7,9 +7,10 @@ export class FormService {
     constructor(){
         this.fileService = new FileService();
   }
-    save(demande: DemandeDTO) {
-        this.fileService.generatePDF();
-    console.log("nom " + demande.nom);
-  }
+    save(demandeDTO: DemandeDTO) {
+    
+    this.fileService.generatePDF(demandeDTO);
+    console.log("nom " + demandeDTO.nom);
+}
 
 }

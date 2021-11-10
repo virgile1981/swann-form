@@ -1,5 +1,7 @@
-import puppeteer from 'puppeteer';
 import fs from 'fs'; 
+import pdf from 'html-pdf';
+import { DemandeDTO } from './dto/demande.dto';
+import Mustache from 'mustache';
 
 export class FileService {
     savePDF(buffer: Buffer) {
@@ -11,31 +13,25 @@ export class FileService {
           });
     }
 
-    public async generatePDF() {
+    public async generatePDF(demandeDTO: DemandeDTO) {
+     
+        var options = { };
+        var html = "";
+        switch(demandeDTO.demande) {
+            case "personnelle":
+                html = fs.readFileSync('./templates/demandePersonnelleForm.html', 'utf8');
+                var data = new DemandeDTO().inject(demandeDTO); 
+                html = Mustache.render(html, data);
+                //console.log(JSON.stringify(demandeDTO.prepareForTemplate()));
+                break;
+            case "flash":
+                break;
+        }               
+        
+        pdf.create(html, options).toFile('./form.pdf', function(err, res) {
+          if (err) return console.log(err);
+          console.log(res); // { filename: '/app/businesscard.pdf' }
+        });
+    }
 
-    //We start a new browser, without showing UI
-    const browser = await puppeteer.launch({ headless: true });
-    const page = await browser.newPage();
-    const url = 'http://localhost:4200';
-
-    //We load the page, one of my blog post (networkidle0 means we're waiting for the network to stop making new calls for 500ms
-    await page.goto(url, {waitUntil: 'networkidle0'});
-    //We add style to hide some UI elements we don't want to see on our pdf
-    
-    /*await page.addStyleTag({ content:
-        `header.site-header,
-        #cookie-band,
-        .post-full-image,
-        .post-full-comments,
-        .read-next,
-        .site-footer { 
-        display: none !important;
-        }`
-    });
-*/
-    //Let's generate the pdf and close the browser
-    const pdf = await page.pdf({ path: "article.pdf", format: 'a4' });
-    await browser.close();
-    return pdf;
-}
 }

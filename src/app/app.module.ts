@@ -11,6 +11,8 @@ import { FormDirective } from './form.directive';
 import { DemandeAutreComponent } from './demande-autre/demande-autre.component';
 import { FileUploadComponent } from './utils/fileUpload.component';
 import { HttpClientModule } from '@angular/common/http';
+import { RouterModule } from '@angular/router';
+import { DemandeComponent } from './demande/demande.component';
 
 @NgModule({
   declarations: [
@@ -20,14 +22,17 @@ import { HttpClientModule } from '@angular/common/http';
     DemandePeintureComponent,
     DemandeAutreComponent,
     FileUploadComponent,
-    FormDirective
+    FormDirective,
+    DemandeComponent
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule,
     FormsModule,
     ReactiveFormsModule,
-    HttpClientModule
+    HttpClientModule,
+    RouterModule.forRoot([
+      {path: '', component: DemandeComponent}
+    ]),
   ],
   providers: [],
   bootstrap: [AppComponent]
