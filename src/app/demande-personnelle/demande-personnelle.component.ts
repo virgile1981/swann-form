@@ -2,7 +2,9 @@ import { HttpEvent, HttpEventType } from '@angular/common/http';
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { DemandeComponent } from '../demande.component';
-import { FormService } from '../form.service';
+import { FormService } from '../services/form.service';
+import { DemandePersonnelleForm, IDemandePersonnelleForm } from '../models/demandeForm.model';
+import { DataUtils, FileLoadError } from '../services/data-utils.service';
 
 @Component({
   selector: 'app-demande-personnelle',
@@ -31,7 +33,7 @@ export class DemandePersonnelleComponent implements DemandeComponent {
   });
 
 
- constructor(private fb: FormBuilder,private formService: FormService) {}
+ constructor(private fb: FormBuilder,private formService: FormService,protected dataUtils: DataUtils) {}
 
   ngOnInit(): void {
     //On joint au premier formulaire le formulaire de demande personnelle que l'utilisateur s'apprête à remplir
@@ -68,24 +70,32 @@ export class DemandePersonnelleComponent implements DemandeComponent {
   }
 
   uploadImageEmplacement(event) {
+    this.dataUtils.loadFileToForm(event, this.demandeForm, 'imageEmplacement', true).subscribe({
+      error: (err: FileLoadError) =>
+        console.error('error.file.' + err.key),
+    });
+    /*
     const file = (event.target as HTMLInputElement).files[0];
     this.demandeForm.patchValue({
       imageEmplacement: file
     });
-    this.demandeForm.get('imageEmplacement').updateValueAndValidity()
-  }
+  this.demandeForm.get('imageEmplacement').updateValueAndValidity()*/
+}
 
   uploadImageInspiration(event) {
-    const file = (event.target as HTMLInputElement).files[0];
+    this.dataUtils.loadFileToForm(event, this.demandeForm, 'imageInspiration', true).subscribe({
+      error: (err: FileLoadError) =>
+        console.error('error.file.' + err.key),
+    });
+    /** const file = (event.target as HTMLInputElement).files[0];
     this.demandeForm.patchValue({
       imageEmplacement: file
     });
-    this.demandeForm.get('imageEmplacement').updateValueAndValidity()
+    this.demandeForm.get('imageEmplacement').updateValueAndValidity() */
   }
 
   save(){
-    console.log(this.form.value);
-    this.formService.save(this.form.value).subscribe((event: HttpEvent<any>) => {
+    this.formService.save(this.createFromForm()).subscribe((event: HttpEvent<any>) => {
       switch (event.type) {
         case HttpEventType.Sent:
           console.log('Request has been made!');
@@ -105,6 +115,21 @@ export class DemandePersonnelleComponent implements DemandeComponent {
 
       }
     });
-    
   }
+
+  protected createFromForm(): IDemandePersonnelleForm {
+    return {
+      ...new DemandePersonnelleForm(),
+      descriptif: this.demandeForm.get(['descriptif'])!.value,
+      ville: this.demandeForm.get(['ville'])!.value,
+      idee: this.demandeForm.get(['idee'])!.value,
+      imageInspiration: this.demandeForm.get(['imageInspiration'])!.value,
+      imageEmplacement: this.demandeForm.get(['imageEmplacement'])!.value,
+      taille: this.demandeForm.get(['taille'])!.value,
+      budget: this.demandeForm.get(['budget'])!.value,
+      planification: this.demandeForm.get(['planification'])!.value,
+    };
+  }
+
+
 }
