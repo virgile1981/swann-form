@@ -3,7 +3,7 @@ import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { DemandeComponent } from '../demande.component';
 import { FormService } from '../services/form.service';
-import { DemandePersonnelleForm, IDemandePersonnelleForm } from '../models/demandeForm.model';
+import { DemandePersonnelleForm, IDemandePersonnelleForm } from '../models/demandePersonnelleForm.model';
 import { DataUtils, FileLoadError } from '../services/data-utils.service';
 
 @Component({

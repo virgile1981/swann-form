@@ -1,6 +1,5 @@
 import { IForm } from "./form.model";
 
-
 export interface IDemandePersonnelleForm extends IForm {
     descriptif?: string,
     ville?: string,
