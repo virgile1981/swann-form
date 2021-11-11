@@ -5,26 +5,23 @@ export class DemandeDTO {
     demande?: string;
 
     isMajeur() : boolean {
-        console.log(this.majeur);
-        console.log(this.majeur==="oui");
-        
         return this.majeur ==="oui";
     }
 
     isDemandePersonnelle(): boolean {
-        return this.demande == "personnelle";
+        return this.demande === "personnelle";
     }
 
     isDemandeFlash(): boolean {
-        return this.demande == "flash";
+        return this.demande === "flash";
     }
 
     isDemandePeinture(): boolean {
-        return this.demande == "peinture";
+        return this.demande === "peinture";
     }
 
     isDemandeAutre(): boolean {
-        return this.demande == "autre";
+        return !this.isDemandePersonnelle() && !this.isDemandeFlash() && !this.isDemandePeinture();
     }
  
     inject(demandeDTO: DemandeDTO): DemandeDTO {

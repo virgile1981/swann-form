@@ -10515,32 +10515,32 @@ body {
             <div class="form-group">
                 <label class="form-control-label">Quelle est la nature de ta demande ?</label>
                 <div class="form-check">
-                  <input class="form-check-input" id="personnelle" type="radio" value="personnelle" name="demande" formControlName="demande" required>
-                  <label class="form-check-label" for="personnelle">Commander un tatouage personnel</label>
+                  <input class="form-check-input" type="radio" {{#isDemandePersonnelle}} checked  {{/isDemandePersonnelle }}>
+                  <label class="form-check-label">Commander un tatouage personnel</label>
                </div>
             
                <div class="form-check">
-                  <input class="form-check-input" id="flash" type="radio" value="flash" name="demande"  formControlName="demande" required>
-                  <label class="form-check-label" for="flash">Réserver un tatouage flash (visible sur Instagram ou Facebook)</label>
+                  <input class="form-check-input" type="radio"  {{#isDemandeFlash}} checked {{/isDemandeFlash}}>
+                  <label class="form-check-label">Réserver un tatouage flash (visible sur Instagram ou Facebook)</label>
                </div>
 
                 <div class="form-check">
-                  <input class="form-check-input" id="peinture" type="radio" value="peinture" name="demande"  formControlName="demande" required>
-                  <label class="form-check-label" for="peinture">Réaliser un dessin / peinture</label>
+                  <input class="form-check-input" type="radio" {{#isDemandePeinture}} checked {{/isDemandePeinture}}>
+                  <label class="form-check-label" >Réaliser un dessin / peinture</label>
                 </div>
 
                 <div class="form-check">
-                  <input #autreDemandeButton class="form-check-input" id="autre" type="radio" value="" name="demande"  formControlName="demande" required>
-                  <label class="form-check-label" for="autre">Autre</label>
-                  <input id="texte_autre" class="form-control" formControlName="demande" [attr.disabled]="autreDemandeButtonSelected() ? null : 'disabled'">
+                  <input class="form-check-input" type="radio" {{#isDemandeAutre}} checked {{/isDemandeAutre}}>
+                  <label class="form-check-label"> Autre</label>
+                  {{#isDemandeAutre}}
+                  <p class="form-control"> {{demande}} </p>
+                  {{/isDemandeAutre}}
                 </div>
               </div>
           </div>
         </div>
         <div class="row form-panel justify-content-center mt-2">
-          <div class="col-lg-8 col-sm-12 p-3">
-            <button  class="btn btn-primary" type="submit" [disabled]="!form.valid">Suivant</button>
-          </div>
+          {{> demandeForm}}
         </div>
     </form>
 

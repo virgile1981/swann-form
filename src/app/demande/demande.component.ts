@@ -30,7 +30,7 @@ public form = this.fb.group({
 
   constructor(private fb: FormBuilder, private componentFactoryResolver: ComponentFactoryResolver) {}
   ngOnInit(): void {
-    this.form.setValue({demande: "personnelle",nom:"virgile",email:"bourse.virgile@gmail.com",majeur: "oui"});
+    this.form.setValue({demande: "personnelle",nom:"virgile",email:"bourse.virgile@gmail.com",majeur: "17 ans"});
     this.save();
   }
 

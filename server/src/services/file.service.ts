@@ -2,6 +2,7 @@ import fs from 'fs';
 import pdf from 'html-pdf';
 import { DemandeDTO } from './dto/demande.dto';
 import Mustache from 'mustache';
+import { DemandePersonnelleDTO } from './dto/demandePersonnelle.dto';
 
 export class FileService {
     savePDF(buffer: Buffer) {
@@ -13,21 +14,21 @@ export class FileService {
           });
     }
 
-    public async generatePDF(demandeDTO: DemandeDTO) {
+    public async generatePDF(demandeDTO: any) {
      
         var options = { };
-        var html = "";
+        var html = fs.readFileSync('./templates/demandeForm.mustache', 'utf8');
+        var data;
+        var partials;
         switch(demandeDTO.demande) {
             case "personnelle":
-                html = fs.readFileSync('./templates/demandePersonnelleForm.html', 'utf8');
-                var data = new DemandeDTO().inject(demandeDTO); 
-                html = Mustache.render(html, data);
-                //console.log(JSON.stringify(demandeDTO.prepareForTemplate()));
+                partials = {demandeForm: fs.readFileSync('./templates/demandePersonnelleForm.mustache', 'utf8')};
+                data = new DemandePersonnelleDTO().inject(demandeDTO);
                 break;
             case "flash":
                 break;
         }               
-        
+        html = Mustache.render(html, data,partials);
         pdf.create(html, options).toFile('./form.pdf', function(err, res) {
           if (err) return console.log(err);
           console.log(res); // { filename: '/app/businesscard.pdf' }
