@@ -3,7 +3,8 @@ import { DemandeDTO } from "./demande.dto";
 
 
 export class DemandePersonnelleDTO extends DemandeDTO{
-    villes? = ["Paris","Toulouse","Nantes","Brétignolles-sur-Mer"];
+    villeValues = ["Paris","Toulouse","Nantes","Brétignolles-sur-Mer"];
+    planificationValues = ["Le plus tôt possible","Le mois prochain","L'année prochaine"];
     descriptif?: string;
     ville?: string;
     idee?: string;
@@ -13,38 +14,25 @@ export class DemandePersonnelleDTO extends DemandeDTO{
     budget?: string;
     planification?: string;
 
-    isVilleParis() : boolean {
-        return this.ville === "Paris";
+    isAutreVille(): boolean {
+        if(this.ville != null) { 
+            return !this.villeValues.includes(this.ville);
+        }
+        return false;
     }
-    isVilleToulouse() : boolean {
-        return this.ville === "Toulouse";
-    }
-    isVilleNantes() : boolean {
-        return this.ville === "Nantes";
-    }
-    isVilleBretignolles(): boolean {
-        return this.ville === "Brétignolles-sur-Mer";
-    }
-    isVilleAutre(): boolean {
-        return !this.isVilleParis() && !this.isVilleToulouse() && !this.isVilleNantes() && !this.isVilleBretignolles();
+
+    isAutrePlanification(): boolean {
+        if(this.planification != null) {
+            return !this.planificationValues.includes(this.planification);
+        }
+        return false;
     }
 
     isBudgetIndetermine(): boolean {
-        return this.budget === "indetermine";
+        return this.budget === "pas déterminé";
     }
 
-    isPlanificationPlusTotPossible(): boolean {
-        return this.planification === "plustotpossible";
-    }
-    isPlanificationMoisProchain(): boolean {
-        return this.planification === "moisprochain";
-    }
-    isPlanificationAnneeProchaine(): boolean {
-        return this.planification === "anneeprochaine";
-    }
-    isPlanificationAutre(): boolean {
-        return !this.isPlanificationAnneeProchaine() && !this.isPlanificationPlusTotPossible() && !this.isPlanificationMoisProchain();
-    }
+
 
     inject(demandePersonnelleDTO: DemandePersonnelleDTO): DemandePersonnelleDTO {
         super.inject(demandePersonnelleDTO);        
@@ -59,15 +47,36 @@ export class DemandePersonnelleDTO extends DemandeDTO{
         return this;       
     }
 
+    valuesWithSelectMark(values: string[],value?: string) : any[]{
+        const valuesWithMark = new Array() ;
+        
+        values.forEach( elt => {
+            console.log(elt);
+            var map = {value: elt, isSelected: value===elt};
+            valuesWithMark.push(map);
+        });
+        console.log(JSON.stringify(valuesWithMark));
+        return valuesWithMark;
+    }
+
     villesWithMark(): any[] {
+        return this.valuesWithSelectMark(this.villeValues,this.ville);
+        /*
         const villesWithMark = new Array() ;
-        console.log(this.villes);
-        this.villes?.forEach( elt => {
+        
+        this.villeValues?.forEach( elt => {
             console.log(elt);
             var city = {ville: elt, isSelected: this.ville===elt};
             villesWithMark.push(city);
         });
-        console.log(JSON.stringify(villesWithMark));
+        
         return villesWithMark;
+    */
+   
     }
+
+    planificationsWithMark(): any[] {
+        return this.valuesWithSelectMark(this.planificationValues,this.planification); 
+    }
+
 }

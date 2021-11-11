@@ -15,7 +15,6 @@ export class FileService {
     }
 
     public async generatePDF(demandeDTO: any) {
-     
         var options = { };
         var html = fs.readFileSync('./templates/demandeForm.mustache', 'utf8');
         var data;
@@ -26,6 +25,7 @@ export class FileService {
                 data = new DemandePersonnelleDTO().inject(demandeDTO);
                 break;
             case "flash":
+              
                 break;
         }               
         html = Mustache.render(html, data,partials);
