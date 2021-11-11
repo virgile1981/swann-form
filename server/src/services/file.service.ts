@@ -1,6 +1,5 @@
 import fs from 'fs'; 
 import pdf from 'html-pdf';
-import { DemandeDTO } from './dto/demande.dto';
 import Mustache from 'mustache';
 import { DemandePersonnelleDTO } from './dto/demandePersonnelle.dto';
 
@@ -14,7 +13,7 @@ export class FileService {
           });
     }
 
-    public async generatePDF(demandeDTO: any) {
+    public async generatePDF(demandeDTO: any, callback: (err: Error, stream: fs.ReadStream)=> void) {
         var options = { };
         var html = fs.readFileSync('./templates/demandeForm.mustache', 'utf8');
         var data;
@@ -29,10 +28,7 @@ export class FileService {
                 break;
         }               
         html = Mustache.render(html, data,partials);
-        pdf.create(html, options).toFile('./form.pdf', function(err, res) {
-          if (err) return console.log(err);
-          console.log(res); // { filename: '/app/businesscard.pdf' }
-        });
+        pdf.create(html, options).toStream(callback);
     }
 
 }

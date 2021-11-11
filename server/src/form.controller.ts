@@ -1,10 +1,11 @@
 import * as express from 'express';
-import { FormService } from './form.service';
+import { FormService } from './services/form.service';
 
 export class FormController {
   public path = '/form';
   public router = express.Router();
   formService: FormService;
+
   constructor() {
     this.formService = new FormService();
     this.intializeRoutes();
