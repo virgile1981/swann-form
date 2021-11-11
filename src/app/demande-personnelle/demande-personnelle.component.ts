@@ -26,7 +26,9 @@ export class DemandePersonnelleComponent implements IDemandeComponent {
     ville: [null,Validators.required],
     idee: ['',Validators.required],
     imageInspiration: [null,Validators.required],
+    imageInspirationContentType: [null,Validators.required],
     imageEmplacement: [null,Validators.required],
+    imageEmplacementContentType: [null,Validators.required],
     taille: ['',Validators.required],
     budget: [null,Validators.required],
     planification: [null,Validators.required]
@@ -118,6 +120,7 @@ export class DemandePersonnelleComponent implements IDemandeComponent {
   }
 
   protected createFromForm(): IDemandePersonnelleForm {
+    
     return {
       ...new DemandePersonnelleForm(),
       nom: this.form.get(['nom'])!.value,
@@ -129,7 +132,9 @@ export class DemandePersonnelleComponent implements IDemandeComponent {
       ville: this.demandeForm.get(['ville'])!.value,
       idee: this.demandeForm.get(['idee'])!.value,
       imageInspiration: this.demandeForm.get(['imageInspiration'])!.value,
+      imageInspirationContentType: this.demandeForm.get(['imageInspirationContentType'])!.value,
       imageEmplacement: this.demandeForm.get(['imageEmplacement'])!.value,
+      imageEmplacementContentType: this.demandeForm.get(['imageEmplacementContentType'])!.value,
       taille: this.demandeForm.get(['taille'])!.value,
       budget: this.demandeForm.get(['budget'])!.value,
       planification: this.demandeForm.get(['planification'])!.value,

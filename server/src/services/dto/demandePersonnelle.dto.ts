@@ -9,7 +9,9 @@ export class DemandePersonnelleDTO extends DemandeDTO{
     ville?: string;
     idee?: string;
     imageInspiration?: string;
+    imageInspirationContentType?: string;
     imageEmplacement?: string;
+    imageEmplacementContentType?: string;
     taille?: string;
     budget?: string;
     planification?: string;

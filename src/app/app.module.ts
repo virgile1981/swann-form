@@ -9,7 +9,6 @@ import { DemandePersonnelleComponent } from './demande-personnelle/demande-perso
 import { DemandePeintureComponent } from './demande-peinture/demande-peinture.component';
 import { FormDirective } from './form.directive';
 import { DemandeAutreComponent } from './demande-autre/demande-autre.component';
-import { FileUploadComponent } from './utils/fileUpload.component';
 import { HttpClientModule } from '@angular/common/http';
 import { RouterModule } from '@angular/router';
 import { DemandeComponent } from './demande/demande.component';
@@ -21,7 +20,6 @@ import { DemandeComponent } from './demande/demande.component';
     DemandePersonnelleComponent,
     DemandePeintureComponent,
     DemandeAutreComponent,
-    FileUploadComponent,
     FormDirective,
     DemandeComponent
   ],

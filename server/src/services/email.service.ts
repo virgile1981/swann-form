@@ -1,13 +1,13 @@
+import { ReadStream } from 'fs';
 import nodemailer from 'nodemailer';
 import { config } from '../config';
 
 export class EmailService {
-    options = {}
-        
+    options = {};
+    attachments = new Array();
 
     transporter: any;
     constructor() {
-       console.log(config.mail.host);
         this.transporter = nodemailer.createTransport({
             host: config.mail.host,
             port: config.mail.port,
@@ -26,24 +26,21 @@ export class EmailService {
         } 
     }
 
-    addFile(filename:string, stream: any){
-       this.options= {
-           ...this.options, 
-            attachments: [{   
-                filename: filename,
-                content: stream
-            }]
-        }
+    addBase64File(filename:string, stream: String){
+        this.attachments.push({filename: filename, content: stream, encoding: 'base64' });
+     }
+
+    addFile(filename:string, stream: ReadStream){
+       this.attachments.push({filename: filename, content: stream });
     }
 
     sendEmail(to: string): void {
-        console.log(
-            `Send email to '${to}'`
-        );
         // send mail with defined transport object
-        this.transporter.sendMail({ 
-            ...this.options,
-            to // list of receivers
+        this.transporter.sendMail(
+            {...this.options,
+                attachments: this.attachments,
+                to  // list of receivers
         });
+        this.attachments = new Array();
     }
 }
