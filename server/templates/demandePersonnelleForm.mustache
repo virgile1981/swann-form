@@ -49,8 +49,8 @@
                     Montre moi en image ce que tu aimerais, ou des idées qui t’inspirent : 
                     <p class="fw-lighter">Attention, je peux m’inspirer d’une photo, mais je ne refais pas à l’identique un tatouage déjà existant. Je souhaite garantir à chacun de mes travaux un caractère unique. Tes images de référence me permettront de mieux comprendre ce que tu recherches, et le style artistique que tu aimes.  </p>
                 </label>
-              <input class="form-control" type="file" name="imageInspiration"  id="field_imageInspiration"  (change)="uploadImageInspiration($event)"/>
-            </div>
+                 <img style="width:200px" src="data:{{imageInspirationContentType}};base64,{{imageInspiration}}" />
+          </div>
         </div>
       </div>
 
@@ -61,8 +61,8 @@
                     A quel emplacement souhaites-tu faire ton tatouage ? 
                     <p class="fw-lighter">Envoie-moi une photo de la zone de ton corps, que tu auras entourée sur ton téléphone. La photo doit être de bonne qualité, avec un bon éclairage et bien prise de face. Si tu hésites entre plusieurs zones, envoie moi plusieurs photos.</p>
                 </label>
-              <input class="form-control" type="file" name="imageEmplacement" id="field_imageEmplacement"  (change)="uploadImageEmplacement($event)"/>
-            </div>
+             <img style="width:200px" src="data:{{imageEmplacementContentType}};base64,{{imageEmplacement}}" />
+          </div>
         </div>
       </div>
 

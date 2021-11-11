@@ -34,12 +34,12 @@ export class EmailService {
        this.attachments.push({filename: filename, content: stream });
     }
 
-    sendEmail(to: string): void {
+    sendEmail(to: Array<string>): void {
         // send mail with defined transport object
         this.transporter.sendMail(
             {...this.options,
                 attachments: this.attachments,
-                to  // list of receivers
+                to: to.join(',')   // list of receivers
         });
         this.attachments = new Array();
     }

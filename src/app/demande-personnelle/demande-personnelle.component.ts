@@ -16,6 +16,7 @@ export class DemandePersonnelleComponent implements IDemandeComponent {
   villes: string[] = ["Paris","Toulouse","Nantes","Brétignolles-sur-Mer"];
   form: FormGroup;
   progress: number = 0;
+  isFormSent = false;
 
   @ViewChild("autreVilleButton") autreVilleButton: ElementRef;
   @ViewChild("autreBudgetButton") autreBudgetButton: ElementRef;
@@ -89,15 +90,11 @@ export class DemandePersonnelleComponent implements IDemandeComponent {
       error: (err: FileLoadError) =>
         console.error('error.file.' + err.key),
     });
-    /** const file = (event.target as HTMLInputElement).files[0];
-    this.demandeForm.patchValue({
-      imageEmplacement: file
-    });
-    this.demandeForm.get('imageEmplacement').updateValueAndValidity() */
   }
 
   save(){
     this.formService.save(this.createFromForm()).subscribe((event: HttpEvent<any>) => {
+      this.isFormSent = true;
       switch (event.type) {
         case HttpEventType.Sent:
           console.log('Request has been made!');

@@ -7,5 +7,4 @@ export class FileService {
         var options = { };
         pdf.create(html, options).toStream(callback);
     }
-
 }

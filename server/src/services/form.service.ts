@@ -23,10 +23,10 @@ export class FormService {
             partials = {demandeForm: fs.readFileSync('./templates/demandePersonnelleForm.mustache', 'utf8')};
             data = new DemandePersonnelleDTO().inject(demandeDTO);
            if(data.imageEmplacement!= null) {
-                this.emailService.addBase64File("emplacement.jpg",data.imageEmplacement);
+                this.emailService.addBase64File(config.mail.emplacementFilename+".jpg",data.imageEmplacement);
             }
             if(data.imageInspiration!= null) {
-                this.emailService.addBase64File("inspiration.jpg",data.imageInspiration);
+                this.emailService.addBase64File(config.mail.inspirationFilename+".jpg",data.imageInspiration);
             }
             break;
         case "flash":
@@ -36,11 +36,8 @@ export class FormService {
     html = Mustache.render(html, data,partials);
     this.fileService.generatePDF(html, function(err, stream) {
         if(demandeDTO.email != null) {
-            self.emailService.addFile(config.mail.pdfName+".pdf",stream);
-            //self.emailService.addFile(config.mail.pdfName+".pdf",demandeDTO.);
-            //self.emailService.addFile(config.mail.pdfName+".pdf",pdfStream);
-            
-            self.emailService.sendEmail(demandeDTO.email);
+            self.emailService.addFile(config.mail.pdfFilename+".pdf",stream);            
+            self.emailService.sendEmail(new Array(demandeDTO.email,config.mail.from));
         }
     });
 }
