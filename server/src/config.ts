@@ -14,6 +14,7 @@ export const config ={
         "Swann</p></body></html>",
         emplacementFilename: "emplacement",
         inspirationFilename: "inspiration",
+        flashFilename: "flash",
         pdfFilename:"formulaire",
         host: "mail.cdpt.fr",
         port: 465,

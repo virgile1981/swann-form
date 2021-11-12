@@ -1,0 +1,62 @@
+import { DemandeDTO } from "./demande.dto";
+
+
+
+export class DemandeFlashDTO extends DemandeDTO{
+    villeValues = ["Paris","Toulouse","Nantes","Brétignolles-sur-Mer"];
+    planificationValues = ["Le plus tôt possible","Le mois prochain","L'année prochaine"];
+    descriptif?: string;
+    ville?: string;
+    modifications?: string;
+    imageFlash?: string;
+    imageFlashContentType?: string;
+    imageEmplacement?: string;
+    imageEmplacementContentType?: string;
+    taille?: string;
+    budget?: string;
+    planification?: string;
+
+    isAutreVille(): boolean {
+        if(this.ville != null) { 
+            return !this.villeValues.includes(this.ville);
+        }
+        return false;
+    }
+
+    isAutrePlanification(): boolean {
+        if(this.planification != null) {
+            return !this.planificationValues.includes(this.planification);
+        }
+        return false;
+    }
+
+    isTailleDeLArtiste(): boolean {
+        return this.taille === "tailleDeLArtiste";
+    }
+
+
+
+    inject(demandeFlashDTO: DemandeFlashDTO): DemandeFlashDTO {
+        super.inject(demandeFlashDTO);        
+        this.descriptif = demandeFlashDTO.descriptif;
+        this.ville = demandeFlashDTO.ville;
+        this.modifications = demandeFlashDTO.modifications;
+        this.imageFlash = demandeFlashDTO.imageFlash;
+        this.imageEmplacement = demandeFlashDTO.imageEmplacement;
+        this.taille = demandeFlashDTO.taille;
+        this.budget = demandeFlashDTO.budget;
+        this.planification = demandeFlashDTO.planification;
+        return this;       
+    }
+
+
+
+    villesWithMark(): any[] {
+        return this.valuesWithSelectMark(this.villeValues,this.ville);
+    }
+
+    planificationsWithMark(): any[] {
+        return this.valuesWithSelectMark(this.planificationValues,this.planification); 
+    }
+
+}

@@ -2,8 +2,12 @@
   "name": "server",
   "version": "1.0.0",
   "description": "",
-  "main": "app.js",
+  "main": "server.js",
   "scripts": {
+    "clean": "rimraf dist",
+    "build": "npm run clean && tsc -p tsconfig.build.json && npm run copy-resources",   
+    "webpack:prod": "npm run clean && webpack --config webpack.server.prod.config.js && npm run copy-resources",
+    "copy-resources": "ts-node scripts/copy-resources.ts",
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "nodemon ./src/server.ts"
   },
@@ -11,6 +15,7 @@
   "license": "ISC",
   "dependencies": {
     "express": "^4.17.1",
+    "g": "^2.0.1",
     "html-pdf": "^3.0.1",
     "mustache": "^4.2.0",
     "node": "^17.0.1",
@@ -23,8 +28,16 @@
     "@types/mustache": "^4.1.2",
     "@types/node": "^16.11.7",
     "@types/nodemailer": "^6.4.4",
+    "file-loader": "^6.2.0",
+    "html-loader": "^3.0.1",
+    "mustache-loader": "^1.4.3",
     "nodemon": "^2.0.15",
+    "rimraf": "^3.0.2",
+    "ts-loader": "^9.2.6",
     "ts-node": "^10.4.0",
-    "typescript": "^4.4.4"
+    "tsc": "^2.0.3",
+    "typescript": "^4.4.4",
+    "webpack": "^5.64.0",
+    "webpack-cli": "^4.9.1"
   }
 }

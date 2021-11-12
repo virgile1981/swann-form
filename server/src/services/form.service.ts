@@ -4,6 +4,8 @@ import { FileService } from "./file.service";
 import fs from 'fs';
 import { DemandePersonnelleDTO } from "./dto/demandePersonnelle.dto";
 import Mustache from "mustache";
+import { DemandeFlashDTO } from "./dto/demandeFlash.dto";
+
 
 export class FormService {
     fileService: FileService;
@@ -16,11 +18,12 @@ export class FormService {
     var self = this;
     var data;
     var partials;
-    var html = fs.readFileSync('./templates/demandeForm.mustache', 'utf8');
+    var html = fs.readFileSync("./templates/demandeForm.mustache", 'utf8');
 
+    
     switch(demandeDTO.demande) {
         case "personnelle":
-            partials = {demandeForm: fs.readFileSync('./templates/demandePersonnelleForm.mustache', 'utf8')};
+            partials = {demandeForm: fs.readFileSync("./templates/demandePersonnelleForm.mustache", 'utf8')};
             data = new DemandePersonnelleDTO().inject(demandeDTO);
            if(data.imageEmplacement!= null) {
                 this.emailService.addBase64File(config.mail.emplacementFilename+".jpg",data.imageEmplacement);
@@ -30,7 +33,14 @@ export class FormService {
             }
             break;
         case "flash":
-            
+            partials = {demandeForm: fs.readFileSync("./templates/demandeFlashForm.mustache", 'utf8')};
+            data = new DemandeFlashDTO().inject(demandeDTO);
+            if(data.imageEmplacement!= null) {
+                this.emailService.addBase64File(config.mail.emplacementFilename+".jpg",data.imageEmplacement);
+            }
+            if(data.imageFlash!= null) {
+                this.emailService.addBase64File(config.mail.flashFilename+".jpg",data.imageFlash);
+            }
             break;
     }       
     html = Mustache.render(html, data,partials);

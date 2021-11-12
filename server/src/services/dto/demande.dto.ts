@@ -31,4 +31,16 @@ export class DemandeDTO {
         this.demande = demandeDTO.demande;
         return this;
     }
+
+    valuesWithSelectMark(values: string[],value?: string) : any[]{
+        const valuesWithMark = new Array() ;
+        
+        values.forEach( elt => {
+            console.log(elt);
+            var map = {value: elt, isSelected: value===elt};
+            valuesWithMark.push(map);
+        });
+        console.log(JSON.stringify(valuesWithMark));
+        return valuesWithMark;
+    }
 }
