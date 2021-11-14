@@ -5,6 +5,7 @@ import fs from 'fs';
 import { DemandePersonnelleDTO } from "./dto/demandePersonnelle.dto";
 import Mustache from "mustache";
 import { DemandeFlashDTO } from "./dto/demandeFlash.dto";
+import { DemandePeintureDTO } from "./dto/demandePeinture.dto";
 
 
 export class FormService {
@@ -40,6 +41,13 @@ export class FormService {
             }
             if(data.imageFlash!= null) {
                 this.emailService.addBase64File(config.mail.flashFilename+".jpg",data.imageFlash);
+            }
+            break;
+        case "peinture":
+            partials = {demandeForm: fs.readFileSync("./templates/demandePeintureForm.mustache", 'utf8')};
+            data = new DemandePeintureDTO().inject(demandeDTO);
+            if(data.imageReference!= null) {
+                this.emailService.addBase64File(config.mail.referenceFilename+".jpg",data.imageReference);
             }
             break;
     }       

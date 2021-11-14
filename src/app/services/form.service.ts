@@ -11,14 +11,11 @@ export class FormService {
   constructor(private http: HttpClient) { }
 
   save(form: any){
-    console.log("coucou");
-
     return this.http.post(config.server.url+"/api/form", form, {
       reportProgress: true,
       observe: 'events',
       headers: new HttpHeaders({ 
-        'Access-Control-Allow-Origin':'*',
-        'mon-entete-personnalise':'maValeur'
+        'Access-Control-Allow-Origin':'*'
       })
     }).pipe(
       catchError(this.errorMgmt)

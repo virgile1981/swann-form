@@ -42,7 +42,9 @@ export class DemandePersonnelleDTO extends DemandeDTO{
         this.ville = demandePersonnelleDTO.ville;
         this.idee = demandePersonnelleDTO.idee;
         this.imageInspiration = demandePersonnelleDTO.imageInspiration;
+        this.imageInspirationContentType = demandePersonnelleDTO.imageInspirationContentType;
         this.imageEmplacement = demandePersonnelleDTO.imageEmplacement;
+        this.imageEmplacementContentType = demandePersonnelleDTO.imageEmplacementContentType;
         this.taille = demandePersonnelleDTO.taille;
         this.budget = demandePersonnelleDTO.budget;
         this.planification = demandePersonnelleDTO.planification;

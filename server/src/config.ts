@@ -15,6 +15,7 @@ export const config ={
         emplacementFilename: "emplacement",
         inspirationFilename: "inspiration",
         flashFilename: "flash",
+        referenceFilename: "reference",
         pdfFilename:"formulaire",
         host: "mail.cdpt.fr",
         port: 465,

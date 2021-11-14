@@ -1,1 +1,124 @@
-<p>demande-flash works!</p>
+<form  *ngIf="!isFormSent" [formGroup]="demandeForm" (ngSubmit)="save()" >
+    <div class="row form-panel justify-content-center mt-2">
+      <div class="col-lg-8 col-sm-12 p-3">
+        <div class="form-group">
+            <label class="form-control-label">Réserver un flash</label>
+            <input class="form-control" name="descriptif" id="field_descriptif" formControlName="descriptif" />
+          </div>
+      </div>
+    </div>
+
+    <div class="row form-panel justify-content-center mt-2">
+        <div class="col-lg-8 col-sm-12 p-3">
+          <div class="form-group">
+              <label class="form-control-label">Dans quelle ville souhaites-tu te faire tatouer ?</label>            
+              <div class="form-check" *ngFor="let ville of villes">
+                <input class="form-check-input" type="radio" value="{{ville}}" formControlName="ville" required>
+                <label class="form-check-label" for="{{ville}}">{{ville}}</label>
+             </div>
+              <div class="form-check">
+                <input #autreVilleButton class="form-check-input" type="radio" value="" formControlName="ville" required>
+                <label class="form-check-label" for="autre">Autre</label>
+                <input class="form-control" formControlName="ville" [attr.disabled]="autreVilleButtonSelected() ? null : 'disabled'" required >
+             </div>
+            </div>
+        </div>
+      </div>
+  
+      <div class="row form-panel justify-content-center mt-2">
+        <div class="col-lg-8 col-sm-12 p-3">
+          <div class="form-group">
+                <label class="form-control-label">
+                    Envoie-moi la photo du Flash que tu souhaites réserver :  
+                    <p class="fw-lighter">Si plusieurs motifs sont présents sur l’image, merci de l’entourer. Tu peux me demander plusieurs Flashs.</p>
+                </label>
+              <input class="form-control" type="file" name="imageFlash"  id="field_imageFlash"  (change)="uploadImageFlash($event)"/>
+            </div>
+        </div>
+      </div>
+
+      <div class="row form-panel justify-content-center mt-2">
+        <div class="col-lg-8 col-sm-12 p-3">
+          <div class="form-group">
+                <label class="form-control-label">Y aurait-il des modifications, des éléments à ajouter ?</label>
+              <input class="form-control" name="modifications" id="field_modifications" formControlName="modifications" />
+            </div>
+        </div>
+      </div>
+
+      <div class="row form-panel justify-content-center mt-2">
+        <div class="col-lg-8 col-sm-12 p-3">
+          <div class="form-group">
+                <label class="form-control-label">
+                    A quel emplacement souhaites-tu faire ton tatouage ? 
+                    <p class="fw-lighter">Envoie-moi une photo de la zone de ton corps, que tu auras entourée sur ton téléphone. La photo doit être de bonne qualité, avec un bon éclairage et bien prise de face. Si tu hésites entre plusieurs zones, envoie moi plusieurs photos.</p>
+                </label>
+              <input class="form-control" type="file" name="imageEmplacement" id="field_imageEmplacement"  (change)="uploadImageEmplacement($event)"/>
+            </div>
+        </div>
+      </div>
+
+      <div class="row form-panel justify-content-center mt-2">
+        <div class="col-lg-8 col-sm-12 p-3">
+          <div class="form-group">
+                <label class="form-control-label">
+                    Quelle taille souhaites-tu  pour ton tatouage ?
+                    <p class="fw-lighter">Si autre, merci de donner une indication de la hauteur et de la largeur en cm.</p>
+                </label>
+
+                <div class="form-check">
+                  <input class="form-check-input" type="radio" value="tailleDeLArtiste" formControlName="taille" required>
+                  <label class="form-check-label" for="tailleDeLArtiste">La taille prévue ou conseillée par l'artiste</label>
+               </div>
+                <div class="form-check">
+                  <input #autreTailleButton class="form-check-input" type="radio" value="" formControlName="taille" required>
+                  <label class="form-check-label" for="autre">Autre</label>
+                  <input class="form-control" formControlName="taille" [attr.disabled]="autreTailleButtonSelected() ? null : 'disabled'" required >
+               </div>              
+            </div>
+        </div>
+      </div>
+
+      <div class="row form-panel justify-content-center mt-2">
+        <div class="col-lg-8 col-sm-12 p-3">
+          <div class="form-group">
+              <label class="form-control-label">
+                  Quand souhaites-tu concrétiser ton projet ?
+                    <p class="fw-lighter">Je ferai au mieux en fonction de mon agenda.</p>
+              </label>
+              
+              <div class="form-check">
+                <input class="form-check-input" type="radio" value="Le plus tôt possible" formControlName="planification" required>
+                <label class="form-check-label" for="plustotpossible">Le plus tôt possible</label>
+             </div>
+             <div class="form-check">
+                <input class="form-check-input" type="radio" value="Le mois prochain" formControlName="planification" required>
+                <label class="form-check-label" for="moisprochain">Le mois prochain</label>
+             </div>
+             <div class="form-check">
+                <input class="form-check-input" type="radio" value="L'année prochaine" formControlName="planification" required>
+                <label class="form-check-label" for="anneeprochaine">L'année prochaine</label>
+             </div>
+              <div class="form-check">
+                <input #autrePlanificationButton class="form-check-input" type="radio" value="" formControlName="planification" required>
+                <label class="form-check-label" for="autre">Autre</label>
+                <input class="form-control" formControlName="planification" [attr.disabled]="autrePlanificationButtonSelected() ? null : 'disabled'" required >
+             </div>
+
+            </div>
+        </div>
+      </div>
+
+    <div class="row form-panel justify-content-center mt-2">
+      <div class="col-lg-8 col-sm-12 p-3">
+        <button  class="btn btn-primary" type="submit" >Enregistrer</button>
+      </div>
+    </div>
+</form>
+<div class="progress form-group" *ngIf="progress > 0">
+  <div class="progress-bar progress-bar-striped bg-success" role="progressbar" [style.width.%]="progress">
+  </div>
+</div>
+<div class="alert alert-success" role="alert" *ngIf="progress == 100">
+  Merci pour ta demande, ton formulaire a bien été enregistré. Tu recevras un message de confirmation sur ton adresse email dans les plus brefs délais.<br> À bientôt !
+</div>

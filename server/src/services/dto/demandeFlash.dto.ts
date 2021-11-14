@@ -42,7 +42,9 @@ export class DemandeFlashDTO extends DemandeDTO{
         this.ville = demandeFlashDTO.ville;
         this.modifications = demandeFlashDTO.modifications;
         this.imageFlash = demandeFlashDTO.imageFlash;
+        this.imageFlashContentType = demandeFlashDTO.imageFlashContentType;
         this.imageEmplacement = demandeFlashDTO.imageEmplacement;
+        this.imageEmplacementContentType = demandeFlashDTO.imageEmplacementContentType;
         this.taille = demandeFlashDTO.taille;
         this.budget = demandeFlashDTO.budget;
         this.planification = demandeFlashDTO.planification;

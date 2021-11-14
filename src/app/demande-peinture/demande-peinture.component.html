@@ -1,1 +1,116 @@
-<p>demande-peinture works!</p>
+<form  *ngIf="!isFormSent" [formGroup]="demandeForm" (ngSubmit)="save()" >
+    <div class="row form-panel justify-content-center mt-2">
+      <div class="col-lg-8 col-sm-12 p-3">
+        <div class="form-group">
+            <label class="form-control-label">Réaliser un dessin ou une peinture</label>
+            <p class="fw-lighter">Les dessins ou peintures seront envoyés protégés dans un emballage à votre adresse, mais sans cadre.</p>
+          </div>
+      </div>
+    </div>
+    <div class="row form-panel justify-content-center mt-2">
+        <div class="col-lg-8 col-sm-12 p-3">
+          <div class="form-group">
+              <label class="form-control-label">Explique moi l’idée de ton projet ?</label>
+              <input class="form-control" name="descriptif" id="field_descriptif" formControlName="descriptif" />
+            </div>
+        </div>
+      </div>
+
+      <div class="row form-panel justify-content-center mt-2">
+        <div class="col-lg-8 col-sm-12 p-3">
+          <div class="form-group">
+                <label class="form-control-label">
+                    Montre moi les images de référence pour ton projet :
+                    <p class="fw-lighter">Portrait, paysage, inspirations… Il est important de sélectionner des images de bonne qualité.</p>
+                </label>
+              <input class="form-control" type="file" name="imageReference"  id="field_imageReference"  (change)="uploadImageReference($event)"/>
+            </div>
+        </div>
+      </div>
+
+      <div class="row form-panel justify-content-center mt-2">
+        <div class="col-lg-8 col-sm-12 p-3">
+          <div class="form-group">
+              <label class="form-control-label">As-tu une préférence pour l’une de ces techniques ?</label>            
+              <div class="form-check" *ngFor="let technique of techniques">
+                <input class="form-check-input" type="radio" value="{{technique}}" formControlName="technique" required>
+                <label class="form-check-label" for="{{technique}}">{{technique}}</label>
+             </div>
+            </div>
+        </div>
+      </div>
+
+      <div class="row form-panel justify-content-center mt-2">
+        <div class="col-lg-8 col-sm-12 p-3">
+          <div class="form-group">
+              <label class="form-control-label">Quel format ?
+                <p class="fw-lighter">Si tu as un format précis, merci de l’indiquer. Si tu n’as pas d’idée déterminée sur la taille et souhaites laisser libre cours à l’artiste, réponds « pas défini ».</p>            
+              </label>
+              <div class="form-check" *ngFor="let format of formats">
+                <input class="form-check-input" type="radio" value="{{format}}" formControlName="format" required>
+                <label class="form-check-label" for="{{format}}">{{format}}</label>
+             </div>
+              <div class="form-check">
+                <input #autreFormatButton class="form-check-input" type="radio" value="" formControlName="format" required>
+                <label class="form-check-label" for="autre">Autre</label>
+                <input class="form-control" formControlName="format" [attr.disabled]="autreFormatButtonSelected() ? null : 'disabled'" required >
+             </div>
+            </div>
+        </div>
+      </div>
+
+      <div class="row form-panel justify-content-center mt-2">
+        <div class="col-lg-8 col-sm-12 p-3">
+          <div class="form-group">
+                <label class="form-control-label">
+                  Quel est ton budget ?
+                    <p class="fw-lighter">Si tu as un budget précis à ne pas dépasser, merci de l’indiquer.</p>
+                </label>
+
+                <div class="form-check">
+                  <input class="form-check-input" type="radio" value="Pas déterminé" formControlName="budget" required>
+                  <label class="form-check-label" for="indetermine">Pas déterminé</label>
+               </div>
+                <div class="form-check">
+                  <input #autreBudgetButton class="form-check-input" type="radio" value="" formControlName="budget" required>
+                  <label class="form-check-label" for="autre">Autre</label>
+                  <input class="form-control" formControlName="budget" [attr.disabled]="autreBudgetButtonSelected() ? null : 'disabled'" required >
+               </div>              
+            </div>
+        </div>
+      </div>
+
+      <div class="row form-panel justify-content-center mt-2">
+        <div class="col-lg-8 col-sm-12 p-3">
+          <div class="form-group">
+                <label class="form-control-label">
+                    Quand aimerais-tu recevoir ce projet ?
+                    <p class="fw-lighter">Si il y a une date limite à respecter, merci de l’indiquer.</p>
+                </label>
+
+                <div class="form-check">
+                  <input class="form-check-input" type="radio" value="Pas déterminé" formControlName="planification" required>
+                  <label class="form-check-label" for="indetermine">Pas déterminé</label>
+               </div>
+                <div class="form-check">
+                  <input #autrePlanificationButton class="form-check-input" type="radio" value="" formControlName="planification" required>
+                  <label class="form-check-label" for="autre">Autre</label>
+                  <input class="form-control" formControlName="planification" [attr.disabled]="autrePlanificationButtonSelected() ? null : 'disabled'" required >
+               </div>              
+            </div>
+        </div>
+      </div>
+
+      <div class="row form-panel justify-content-center mt-2">
+        <div class="col-lg-8 col-sm-12 p-3">
+          <button  class="btn btn-primary" type="submit" >Enregistrer</button>
+        </div>
+      </div>
+  </form>
+  <div class="progress form-group" *ngIf="progress > 0">
+    <div class="progress-bar progress-bar-striped bg-success" role="progressbar" [style.width.%]="progress">
+    </div>
+  </div>
+  <div class="alert alert-success" role="alert" *ngIf="progress == 100">
+    Merci pour ta demande, ton formulaire a bien été enregistré. Tu recevras un message de confirmation sur ton adresse email dans les plus brefs délais.<br> À bientôt !
+  </div>
