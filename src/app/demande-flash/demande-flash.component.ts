@@ -1,19 +1,17 @@
-import { HttpEvent, HttpEventType } from '@angular/common/http';
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { FormService } from '../services/form.service';
-import { IDemandeComponent } from '../demande/demande.interface.component';
 import { DemandeFlashForm, IDemandeFlashForm } from '../models/demandeFlashForm.model';
 import { DataUtils, FileLoadError } from '../services/data-utils.service';
+import { AbstractDemandeComponent } from '../demande/abstractDemande.component';
 
 @Component({
   selector: 'app-demande-flash',
   templateUrl: './demande-flash.component.html',
   styleUrls: ['./demande-flash.component.scss']
 })
-export class DemandeFlashComponent implements IDemandeComponent {
+export class DemandeFlashComponent  extends AbstractDemandeComponent  {
  
-  
   villes: string[] = ["Paris","Toulouse","Nantes","Brétignolles-sur-Mer"];
   form: FormGroup;
   progress: number = 0;
@@ -28,15 +26,15 @@ export class DemandeFlashComponent implements IDemandeComponent {
     ville: [null,Validators.required],
     modifications: ['',Validators.required],
     imageFlash: [null,Validators.required],
-    imageFlashContentType: [null,Validators.required],
     imageEmplacement: [null,Validators.required],
-    imageEmplacementContentType: [null,Validators.required],
     taille: [null,Validators.required],
     budget: [null,Validators.required],
     planification: [null,Validators.required]
   });
 
-  constructor(private fb: FormBuilder,private formService: FormService,protected dataUtils: DataUtils) {}
+  constructor(private fb: FormBuilder,protected formService: FormService,protected dataUtils: DataUtils) {
+    super(formService);
+  }
 
   ngOnInit(): void {
     //On joint au premier formulaire le formulaire de demande personnelle que l'utilisateur s'apprête à remplir
@@ -72,44 +70,6 @@ export class DemandeFlashComponent implements IDemandeComponent {
     return false;
   }
 
-  uploadImageEmplacement(event) {
-    this.dataUtils.loadFileToForm(event, this.demandeForm, 'imageEmplacement', true).subscribe({
-      error: (err: FileLoadError) =>
-        console.error('error.file.' + err.key),
-    });
-}
-
-  uploadImageFlash(event) {
-    this.dataUtils.loadFileToForm(event, this.demandeForm, 'imageFlash', true).subscribe({
-      error: (err: FileLoadError) =>
-        console.error('error.file.' + err.key),
-    });
-  }
-
-  save(){
-    this.formService.save(this.createFromForm()).subscribe((event: HttpEvent<any>) => {
-      this.isFormSent = true;
-      switch (event.type) {
-        case HttpEventType.Sent:
-          console.log('Request has been made!');
-          break;
-        case HttpEventType.ResponseHeader:
-          console.log('Response header has been received!');
-          break;
-        case HttpEventType.UploadProgress:
-          this.progress = Math.round(event.loaded / event.total * 100);
-          console.log(`Uploaded! ${this.progress}%`);
-          break;
-        case HttpEventType.Response:
-          console.log('User successfully created!', event.body);
-          setTimeout(() => {
-            this.progress = 0;
-          }, 1500);
-
-      }
-    });
-  }
-
   protected createFromForm(): IDemandeFlashForm {
     
     return {
@@ -123,9 +83,7 @@ export class DemandeFlashComponent implements IDemandeComponent {
       ville: this.demandeForm.get(['ville'])!.value,
       modifications: this.demandeForm.get(['modifications'])!.value,
       imageFlash: this.demandeForm.get(['imageFlash'])!.value,
-      imageFlashContentType: this.demandeForm.get(['imageFlashContentType'])!.value,
       imageEmplacement: this.demandeForm.get(['imageEmplacement'])!.value,
-      imageEmplacementContentType: this.demandeForm.get(['imageEmplacementContentType'])!.value,
       taille: this.demandeForm.get(['taille'])!.value,
       budget: this.demandeForm.get(['budget'])!.value,
       planification: this.demandeForm.get(['planification'])!.value,

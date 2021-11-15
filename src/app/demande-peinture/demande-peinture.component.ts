@@ -1,7 +1,7 @@
 import { HttpEvent, HttpEventType } from '@angular/common/http';
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { IDemandeComponent } from '../demande/demande.interface.component';
+import { AbstractDemandeComponent } from '../demande/abstractDemande.component';
 import { DemandePeintureForm, IDemandePeintureForm } from '../models/demandePeintureForm.model';
 import { DataUtils, FileLoadError } from '../services/data-utils.service';
 import { FormService } from '../services/form.service';
@@ -11,7 +11,7 @@ import { FormService } from '../services/form.service';
   templateUrl: './demande-peinture.component.html',
   styleUrls: ['./demande-peinture.component.scss']
 })
-export class DemandePeintureComponent implements IDemandeComponent {
+export class DemandePeintureComponent  extends AbstractDemandeComponent {
   techniques: string[] = [
           "Digitale - couleur ou noir et blanc",
           "Mines graphites, fusain - noir et blanc (sur papier blanc ou mi-teinte)",
@@ -38,7 +38,9 @@ export class DemandePeintureComponent implements IDemandeComponent {
     planification: [null,Validators.required]
   });
 
-  constructor(private fb: FormBuilder,private formService: FormService,protected dataUtils: DataUtils) {}
+  constructor(private fb: FormBuilder,formService: FormService,protected dataUtils: DataUtils) {
+    super(formService);
+  }
 
   ngOnInit(): void {
     //On joint au premier formulaire le formulaire de demande personnelle que l'utilisateur s'apprête à remplir
@@ -81,30 +83,6 @@ export class DemandePeintureComponent implements IDemandeComponent {
     });
 }
 
-save(){
-  this.formService.save(this.createFromForm()).subscribe((event: HttpEvent<any>) => {
-    this.isFormSent = true;
-    switch (event.type) {
-      case HttpEventType.Sent:
-        console.log('Request has been made!');
-        break;
-      case HttpEventType.ResponseHeader:
-        console.log('Response header has been received!');
-        break;
-      case HttpEventType.UploadProgress:
-        this.progress = Math.round(event.loaded / event.total * 100);
-        console.log(`Uploaded! ${this.progress}%`);
-        break;
-      case HttpEventType.Response:
-        console.log('User successfully created!', event.body);
-        setTimeout(() => {
-          this.progress = 0;
-        }, 1500);
-
-    }
-  });
-}
-
 protected createFromForm(): IDemandePeintureForm {
   
   return {
@@ -116,7 +94,6 @@ protected createFromForm(): IDemandePeintureForm {
     
     descriptif: this.demandeForm.get(['descriptif'])!.value,
     imageReference: this.demandeForm.get(['imageReference'])!.value,
-    imageReferenceContentType: this.demandeForm.get(['imageReferenceContentType'])!.value,
     technique: this.demandeForm.get(['technique'])!.value,
     format: this.demandeForm.get(['format'])!.value,   
     budget: this.demandeForm.get(['budget'])!.value,

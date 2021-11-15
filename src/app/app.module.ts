@@ -12,6 +12,7 @@ import { DemandeAutreComponent } from './demande-autre/demande-autre.component';
 import { HttpClientModule } from '@angular/common/http';
 import { RouterModule } from '@angular/router';
 import { DemandeComponent } from './demande/demande.component';
+import { FileUploadComponent } from './shared/fileUpload.component';
 
 @NgModule({
   declarations: [
@@ -21,7 +22,8 @@ import { DemandeComponent } from './demande/demande.component';
     DemandePeintureComponent,
     DemandeAutreComponent,
     FormDirective,
-    DemandeComponent
+    DemandeComponent,
+    FileUploadComponent
   ],
   imports: [
     BrowserModule,

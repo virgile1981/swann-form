@@ -2,10 +2,10 @@
     <div class="row form-panel justify-content-center mt-2">
       <div class="col-lg-8 col-sm-12 p-3">
         <div class="form-group">
-            <label class="form-control-label">Réaliser un dessin ou une peinture</label>
-            <p class="fw-lighter">Les dessins ou peintures seront envoyés protégés dans un emballage à votre adresse, mais sans cadre.</p>
-          </div>
-      </div>
+            <h2>Réaliser un dessin ou une peinture</h2>
+              <p class="fw-lighter">Les dessins ou peintures seront envoyés protégés dans un emballage à votre adresse, mais sans cadre.</p>
+        </div>
+        </div>
     </div>
     <div class="row form-panel justify-content-center mt-2">
         <div class="col-lg-8 col-sm-12 p-3">
@@ -23,7 +23,7 @@
                     Montre moi les images de référence pour ton projet :
                     <p class="fw-lighter">Portrait, paysage, inspirations… Il est important de sélectionner des images de bonne qualité.</p>
                 </label>
-              <input class="form-control" type="file" name="imageReference"  id="field_imageReference"  (change)="uploadImageReference($event)"/>
+                <app-file-upload class="form-control" id="field_imageReference" name="imageReference" formControlName="imageReference"></app-file-upload>
             </div>
         </div>
       </div>

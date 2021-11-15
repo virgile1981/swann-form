@@ -1,6 +1,5 @@
 import { DemandeDTO } from "./demande.dto";
-
-
+import { FileDTO } from "./file.dto";
 
 export class DemandeFlashDTO extends DemandeDTO{
     villeValues = ["Paris","Toulouse","Nantes","Brétignolles-sur-Mer"];
@@ -8,10 +7,8 @@ export class DemandeFlashDTO extends DemandeDTO{
     descriptif?: string;
     ville?: string;
     modifications?: string;
-    imageFlash?: string;
-    imageFlashContentType?: string;
-    imageEmplacement?: string;
-    imageEmplacementContentType?: string;
+    imageFlash?: FileDTO;
+    imageEmplacement?: FileDTO;
     taille?: string;
     budget?: string;
     planification?: string;
@@ -34,24 +31,18 @@ export class DemandeFlashDTO extends DemandeDTO{
         return this.taille === "tailleDeLArtiste";
     }
 
-
-
     inject(demandeFlashDTO: DemandeFlashDTO): DemandeFlashDTO {
         super.inject(demandeFlashDTO);        
         this.descriptif = demandeFlashDTO.descriptif;
         this.ville = demandeFlashDTO.ville;
         this.modifications = demandeFlashDTO.modifications;
         this.imageFlash = demandeFlashDTO.imageFlash;
-        this.imageFlashContentType = demandeFlashDTO.imageFlashContentType;
         this.imageEmplacement = demandeFlashDTO.imageEmplacement;
-        this.imageEmplacementContentType = demandeFlashDTO.imageEmplacementContentType;
         this.taille = demandeFlashDTO.taille;
         this.budget = demandeFlashDTO.budget;
         this.planification = demandeFlashDTO.planification;
         return this;       
     }
-
-
 
     villesWithMark(): any[] {
         return this.valuesWithSelectMark(this.villeValues,this.ville);

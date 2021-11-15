@@ -1,8 +1,9 @@
 <form  *ngIf="!isFormSent" [formGroup]="demandeForm" (ngSubmit)="save()" >
     <div class="row form-panel justify-content-center mt-2">
       <div class="col-lg-8 col-sm-12 p-3">
+        <h2>Commander un tatouage personnel</h2>
         <div class="form-group">
-            <label class="form-control-label">Commander un tatouage personnel (facultatif)  </label>
+            <label class="form-control-label">Descriptif</label>
             <input class="form-control" name="descriptif" id="field_descriptif" formControlName="descriptif" />
           </div>
       </div>
@@ -44,8 +45,8 @@
                     Montre moi en image ce que tu aimerais, ou des idées qui t’inspirent : 
                     <p class="fw-lighter">Attention, je peux m’inspirer d’une photo, mais je ne refais pas à l’identique un tatouage déjà existant. Je souhaite garantir à chacun de mes travaux un caractère unique. Tes images de référence me permettront de mieux comprendre ce que tu recherches, et le style artistique que tu aimes.  </p>
                 </label>
-              <input class="form-control" type="file" name="imageInspiration"  id="field_imageInspiration"  (change)="uploadImageInspiration($event)"/>
-            </div>
+              <app-file-upload class="form-control" id="field_imageInspiration" name="imageInspiration" formControlName="imageInspiration"></app-file-upload>
+             </div>
         </div>
       </div>
 
@@ -56,7 +57,7 @@
                     A quel emplacement souhaites-tu faire ton tatouage ? 
                     <p class="fw-lighter">Envoie-moi une photo de la zone de ton corps, que tu auras entourée sur ton téléphone. La photo doit être de bonne qualité, avec un bon éclairage et bien prise de face. Si tu hésites entre plusieurs zones, envoie moi plusieurs photos.</p>
                 </label>
-              <input class="form-control" type="file" name="imageEmplacement" id="field_imageEmplacement"  (change)="uploadImageEmplacement($event)"/>
+                <app-file-upload class="form-control" formControlName="imageEmplacement"></app-file-upload>
             </div>
         </div>
       </div>
@@ -65,7 +66,7 @@
         <div class="col-lg-8 col-sm-12 p-3">
           <div class="form-group">
                 <label class="form-control-label">Quelle taille souhaites-tu  pour ton tatouage ?</label>
-              <input class="form-control" name="taille" id="field_taille" formControlName="taille" />
+              <input class="form-control" name="taille" id="field_taille" formControlName="taille" required />
             </div>
         </div>
       </div>
@@ -124,7 +125,7 @@
 
     <div class="row form-panel justify-content-center mt-2">
       <div class="col-lg-8 col-sm-12 p-3">
-        <button  class="btn btn-primary" type="submit" >Enregistrer</button>
+        <button  class="btn btn-primary" type="submit" [disabled]="!form.valid" [disabled]="!form.valid">Enregistrer</button>
       </div>
     </div>
 </form>

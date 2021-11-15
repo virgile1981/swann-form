@@ -1,4 +1,5 @@
 import { DemandeDTO } from "./demande.dto";
+import { FileDTO } from "./file.dto";
 
 
 
@@ -13,8 +14,7 @@ export class DemandePeintureDTO extends DemandeDTO{
     formatValues: string[] = [ "A4","A3","A2"];
 
     descriptif?: string;
-    imageReference?:string;
-    imageReferenceContentType?: string;
+    imageReference?:FileDTO;
     technique?: string;
     format?: string;
     budget?: string;
@@ -47,7 +47,6 @@ export class DemandePeintureDTO extends DemandeDTO{
         this.format = demandePeintureDTO.format;
         this.technique = demandePeintureDTO.technique;
         this.imageReference = demandePeintureDTO.imageReference;
-        this.imageReferenceContentType = demandePeintureDTO.imageReferenceContentType;
         this.budget = demandePeintureDTO.budget;
         this.planification = demandePeintureDTO.planification;
         return this;       

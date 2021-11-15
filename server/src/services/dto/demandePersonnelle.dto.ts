@@ -1,5 +1,5 @@
 import { DemandeDTO } from "./demande.dto";
-
+import {FileDTO} from "./file.dto";
 
 
 export class DemandePersonnelleDTO extends DemandeDTO{
@@ -8,10 +8,8 @@ export class DemandePersonnelleDTO extends DemandeDTO{
     descriptif?: string;
     ville?: string;
     idee?: string;
-    imageInspiration?: string;
-    imageInspirationContentType?: string;
-    imageEmplacement?: string;
-    imageEmplacementContentType?: string;
+    imageInspiration?: FileDTO;
+    imageEmplacement?: FileDTO;
     taille?: string;
     budget?: string;
     planification?: string;
@@ -42,9 +40,7 @@ export class DemandePersonnelleDTO extends DemandeDTO{
         this.ville = demandePersonnelleDTO.ville;
         this.idee = demandePersonnelleDTO.idee;
         this.imageInspiration = demandePersonnelleDTO.imageInspiration;
-        this.imageInspirationContentType = demandePersonnelleDTO.imageInspirationContentType;
         this.imageEmplacement = demandePersonnelleDTO.imageEmplacement;
-        this.imageEmplacementContentType = demandePersonnelleDTO.imageEmplacementContentType;
         this.taille = demandePersonnelleDTO.taille;
         this.budget = demandePersonnelleDTO.budget;
         this.planification = demandePersonnelleDTO.planification;

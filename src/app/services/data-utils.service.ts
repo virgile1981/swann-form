@@ -102,7 +102,7 @@ export class DataUtils {
   /**
    * Method to convert the file to base64
    */
-  private toBase64(file: File, callback: (base64Data: string) => void): void {
+  public  toBase64(file: File, callback: (base64Data: string) => void): void {
     const fileReader: FileReader = new FileReader();
     fileReader.onload = (e: ProgressEvent<FileReader>) => {
       if (typeof e.target?.result === 'string') {

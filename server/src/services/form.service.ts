@@ -27,28 +27,28 @@ export class FormService {
             case "personnelle":
                 partials = {demandeForm: fs.readFileSync("./templates/demandePersonnelleForm.mustache", 'utf8')};
                 data = new DemandePersonnelleDTO().inject(demandeDTO);
-            if(data.imageEmplacement!= null) {
-                    this.emailService.addBase64File(config.mail.emplacementFilename+".jpg",data.imageEmplacement);
+            if(data.imageEmplacement?.buffer) {
+                    this.emailService.addBase64File(config.mail.emplacementFilename+".jpg",data.imageEmplacement.buffer);
                 }
-                if(data.imageInspiration!= null) {
-                    this.emailService.addBase64File(config.mail.inspirationFilename+".jpg",data.imageInspiration);
+                if(data.imageInspiration?.buffer) {
+                    this.emailService.addBase64File(config.mail.inspirationFilename+".jpg",data.imageInspiration.buffer);
                 }
                 break;
             case "flash":
                 partials = {demandeForm: fs.readFileSync("./templates/demandeFlashForm.mustache", 'utf8')};
                 data = new DemandeFlashDTO().inject(demandeDTO);
-                if(data.imageEmplacement!= null) {
-                    this.emailService.addBase64File(config.mail.emplacementFilename+".jpg",data.imageEmplacement);
+                if(data.imageEmplacement?.buffer) {
+                    this.emailService.addBase64File(config.mail.emplacementFilename+".jpg",data.imageEmplacement.buffer);
                 }
-                if(data.imageFlash!= null) {
-                    this.emailService.addBase64File(config.mail.flashFilename+".jpg",data.imageFlash);
+                if(data.imageFlash?.buffer) {
+                    this.emailService.addBase64File(config.mail.flashFilename+".jpg",data.imageFlash.buffer);
                 }
                 break;
             case "peinture":
                 partials = {demandeForm: fs.readFileSync("./templates/demandePeintureForm.mustache", 'utf8')};
                 data = new DemandePeintureDTO().inject(demandeDTO);
-                if(data.imageReference!= null) {
-                    this.emailService.addBase64File(config.mail.referenceFilename+".jpg",data.imageReference);
+                if(data.imageReference?.buffer) {
+                    this.emailService.addBase64File(config.mail.referenceFilename+".jpg",data.imageReference.buffer);
                 }
                 break;
             default:
