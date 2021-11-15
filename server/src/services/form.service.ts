@@ -7,6 +7,7 @@ import Mustache from "mustache";
 import { DemandeFlashDTO } from "./dto/demandeFlash.dto";
 import { DemandePeintureDTO } from "./dto/demandePeinture.dto";
 import { DemandeAutreDTO } from "./dto/demandeAutre.dto";
+import path from "path";
 
 
 export class FormService {
@@ -21,7 +22,6 @@ export class FormService {
     var data;
     var partials;
     var html = fs.readFileSync("./templates/demandeForm.mustache", 'utf8');
-
     
         switch(demandeDTO.demande) {
             case "personnelle":
@@ -59,7 +59,7 @@ export class FormService {
         html = Mustache.render(html, data,partials);
         this.fileService.generatePDF(html, function(err, stream) {
             if(demandeDTO.email != null) {
-                self.emailService.addFile(config.mail.pdfFilename+".pdf",stream);            
+                self.emailService.addFile(config.mail.pdfFilename+".pdf",stream);
                 self.emailService.sendEmail(new Array(demandeDTO.email,config.mail.from));
             }
         });

@@ -1,0 +1,126 @@
+<form  [formGroup]="demandeForm" (ngSubmit)="save()" >
+    <div class="row form-panel justify-content-center mt-2">
+      <div class="col-lg-8 col-sm-12 p-3">
+        <div class="form-group">
+            <label class="form-control-label">Commander un tatouage personnel (facultatif)  </label>
+            <p class="form-control">{{descriptif}}</p>
+          </div>
+      </div>
+    </div>
+
+    
+    <div class="row form-panel justify-content-center mt-2">
+      <div class="col-lg-8 col-sm-12 p-3">
+        <div class="form-group">
+            <label class="form-control-label">Dans quelle ville souhaites-tu te faire tatouer ?</label>
+            {{#villesWithMark}}
+            <div class="form-check" *ngFor="let ville of villes">
+              <input class="form-check-input" type="radio" {{#isSelected}}checked {{/isSelected}}>
+              <label class="form-check-label">{{value}}</label>
+           </div>
+           {{/villesWithMark}}
+            <div class="form-check">
+              <input class="form-check-input" type="radio" {{#isAutreVille}}checked{{/isAutreVille}}>
+              <label class="form-check-label" >Autre</label>
+              {{#isAutreVille}}
+              <p class="form-control">{{ville}}</p>
+              {{/isAutreVille}}
+            </div>
+          </div>
+      </div>
+    </div>
+
+    <div class="row form-panel justify-content-center mt-2">
+        <div class="col-lg-8 col-sm-12 p-3">
+          <div class="form-group">
+                <label class="form-control-label">
+                    Explique moi l'idée de ton projet
+                    <p class="fw-lighter">N’oublie pas de préciser en couleur ou noir et blanc. Tu peux si tu le souhaites me dire pourquoi cela est symbolique pour toi.</p>
+                </label>
+              <p class="form-control">{{idee}}</p>
+            </div>
+        </div>
+      </div>
+
+      <div class="row form-panel justify-content-center mt-2">
+        <div class="col-lg-8 col-sm-12 p-3">
+          <div class="form-group">
+                <label class="form-control-label">
+                    Montre moi en image ce que tu aimerais, ou des idées qui t’inspirent : 
+                    <p class="fw-lighter">Attention, je peux m’inspirer d’une photo, mais je ne refais pas à l’identique un tatouage déjà existant. Je souhaite garantir à chacun de mes travaux un caractère unique. Tes images de référence me permettront de mieux comprendre ce que tu recherches, et le style artistique que tu aimes.  </p>
+                </label>
+                 <img style="width:200px" src="data:{{imageInspiration.type}};base64,{{imageInspiration.buffer}}" />
+          </div>
+        </div>
+      </div>
+
+      <div class="row form-panel justify-content-center mt-2">
+        <div class="col-lg-8 col-sm-12 p-3">
+          <div class="form-group">
+                <label class="form-control-label">
+                    A quel emplacement souhaites-tu faire ton tatouage ? 
+                    <p class="fw-lighter">Envoie-moi une photo de la zone de ton corps, que tu auras entourée sur ton téléphone. La photo doit être de bonne qualité, avec un bon éclairage et bien prise de face. Si tu hésites entre plusieurs zones, envoie moi plusieurs photos.</p>
+                </label>
+             <img style="width:200px" src="data:{{imageEmplacement.type}};base64,{{imageEmplacement.buffer}}" />
+          </div>
+        </div>
+      </div>
+
+      <div class="row form-panel justify-content-center mt-2">
+        <div class="col-lg-8 col-sm-12 p-3">
+          <div class="form-group">
+                <label class="form-control-label">Quelle taille souhaites-tu pour ton tatouage ?</label>
+              <p class="form-control" >{{taille}}</p>
+            </div>
+        </div>
+      </div>
+
+      <div class="row form-panel justify-content-center mt-2">
+        <div class="col-lg-8 col-sm-12 p-3">
+          <div class="form-group">
+                <label class="form-control-label">
+                  Quel est ton budget ?
+                    <p class="fw-lighter">Si tu as un budget précis à ne pas dépasser, merci de l’indiquer.</p>
+                </label>
+              
+                <div class="form-check">
+                    <input class="form-check-input" type="radio" {{#isBudgetIndetermine}}checked{{/isBudgetIndetermine}}>
+                    <label class="form-check-label" for="indetermine">Pas déterminé</label>
+                 </div>
+                  <div class="form-check">
+                    <input class="form-check-input" type="radio" {{^isBudgetIndetermine}}checked{{/isBudgetIndetermine}}>
+                    <label class="form-check-label" for="autre">Autre</label>
+                    {{^isBudgetIndetermine}}
+                        <p class="form-control" >{{budget}}</p>
+                    {{/isBudgetIndetermine}} 
+                </div>              
+            </div>
+        </div>
+      </div>
+
+      
+      <div class="row form-panel justify-content-center mt-2">
+        <div class="col-lg-8 col-sm-12 p-3">
+          <div class="form-group">
+              <label class="form-control-label">
+                  Quand souhaites-tu concrétiser ton projet ?
+                    <p class="fw-lighter">Je ferai au mieux en fonction de mon agenda.</p>
+              </label>
+              {{#planificationsWithMark}}
+              <div class="form-check">
+                <input class="form-check-input" type="radio" {{#isSelected}}checked{{/isSelected}}>
+                <label class="form-check-label">{{value}}</label>
+             </div>
+             {{/planificationsWithMark}}
+              
+             <div class="form-check">
+                <input class="form-check-input" type="radio" {{#isAutrePlanification}}checked{{/isAutrePlanification}}>
+                <label class="form-check-label" >Autre</label>
+                {{#isAutrePlanification}}
+                <p class="form-control"  >{{planification}}</p>
+                {{/isAutrePlanification}}
+              </div>
+            </div>
+        </div>
+      </div>
+</form>

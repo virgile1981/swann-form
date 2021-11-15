@@ -1,0 +1,14 @@
+<form  [formGroup]="demandeForm" (ngSubmit)="save()" >
+    <div class="row mt-2 form-panel">
+        <div class="col-12"></div>
+      <h2>Autre</h2>
+    </div>
+    <div class="row form-panel justify-content-center mt-2">
+      <div class="col-lg-8 col-sm-12 p-3">
+        <div class="form-group">
+            <label class="form-control-label">Explique-moi ce que je peux faire pour toi :</label>
+            <p class="form-control">{{descriptif}}</p>
+          </div>
+      </div>
+    </div>
+</form>

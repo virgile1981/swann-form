@@ -2,6 +2,7 @@ import express from 'express';
 import cors from 'cors';
 import * as bodyParser from 'body-parser';
 import { FormController } from './form.controller';
+import path from 'path';
  
 class App {
   public app: express.Application;
@@ -16,7 +17,8 @@ class App {
   }
  
   private initializeMiddlewares() {
-    this.app.use(cors())
+    this.app.use(cors());
+    this.app.use(express.static(path.join(__dirname, 'static')));
     this.app.use(bodyParser.json({limit:'25mb'}));
   }
  

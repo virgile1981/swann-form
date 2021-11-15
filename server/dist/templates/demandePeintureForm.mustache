@@ -1,0 +1,117 @@
+<form  [formGroup]="demandeForm" (ngSubmit)="save()" >
+    <div class="row form-panel justify-content-center mt-2">
+      <div class="col-lg-8 col-sm-12 p-3">
+        <div class="form-group">
+            <label class="form-control-label">Réaliser un dessin ou une peinture
+                <p class="fw-lighter">Les dessins ou peintures seront envoyés protégés dans un emballage à votre adresse, mais sans cadre.</p>
+            </label>
+            </div>
+      </div>
+    </div>
+
+    <div class="row form-panel justify-content-center mt-2">
+      <div class="col-lg-8 col-sm-12 p-3">
+        <div class="form-group">
+            <label class="form-control-label">Explique moi l’idée de ton projet ?</label>
+            <p class="control-form">{{descriptif}}</p>
+            </div>
+      </div>
+    </div>
+
+    <div class="row form-panel justify-content-center mt-2">
+        <div class="col-lg-8 col-sm-12 p-3">
+          <div class="form-group">
+                <label class="form-control-label">
+                    Montre moi les images de référence pour ton projet :
+                    <p class="fw-lighter">Portrait, paysage, inspirations… Il est important de sélectionner des images de bonne qualité.</p>
+                </label>
+                 <img style="width:200px" src="data:{{imageReference.type}};base64,{{imageReference.buffer}}" />
+          </div>
+        </div>
+      </div>
+
+    <div class="row form-panel justify-content-center mt-2">
+      <div class="col-lg-8 col-sm-12 p-3">
+        <div class="form-group">
+            <label class="form-control-label">As-tu une préférence pour l’une de ces techniques ?</label>
+            {{#techniquesWithMark}}
+            <div class="form-check" *ngFor="let technique of techniques">
+              <input class="form-check-input" type="radio" {{#isSelected}}checked {{/isSelected}}>
+              <label class="form-check-label">{{value}}</label>
+           </div>
+           {{/techniquesWithMark}}
+        </div>
+      </div>
+    </div>
+
+
+  <div class="row form-panel justify-content-center mt-2">
+        <div class="col-lg-8 col-sm-12 p-3">
+          <div class="form-group">
+              <label class="form-control-label">
+                  Quel format ?
+                  <p class="fw-lighter">Si tu as un format précis, merci de l’indiquer. Si tu n’as pas d’idée déterminée sur la taille et souhaites laisser libre cours à l’artiste, réponds « pas défini ».</p>
+              </label>
+              {{#formatsWithMark}}
+              <div class="form-check">
+                <input class="form-check-input" type="radio" {{#isSelected}}checked{{/isSelected}}>
+                <label class="form-check-label">{{value}}</label>
+             </div>
+             {{/formatsWithMark}}
+              
+             <div class="form-check">
+                <input class="form-check-input" type="radio" {{#isAutreFormat}}checked{{/isAutreFormat}}>
+                <label class="form-check-label" >Autre</label>
+                {{#isAutreFormat}}
+                <p class="form-control"  >{{format}}</p>
+                {{/isAutreFormat}}
+              </div>
+            </div>
+        </div>
+      </div>
+
+      <div class="row form-panel justify-content-center mt-2">
+        <div class="col-lg-8 col-sm-12 p-3">
+          <div class="form-group">
+                <label class="form-control-label">
+                  Quel est ton budget ?
+                    <p class="fw-lighter">Si tu as un budget précis à ne pas dépasser, merci de l’indiquer.</p>
+                </label>
+              
+                <div class="form-check">
+                    <input class="form-check-input" type="radio" {{#isBudgetIndetermine}}checked{{/isBudgetIndetermine}}>
+                    <label class="form-check-label" for="indetermine">Pas déterminé</label>
+                 </div>
+                  <div class="form-check">
+                    <input class="form-check-input" type="radio" {{^isBudgetIndetermine}}checked{{/isBudgetIndetermine}}>
+                    <label class="form-check-label" for="autre">Autre</label>
+                    {{^isBudgetIndetermine}}
+                        <p class="form-control" >{{budget}}</p>
+                    {{/isBudgetIndetermine}} 
+                </div>              
+            </div>
+        </div>
+      </div>
+
+ <div class="row form-panel justify-content-center mt-2">
+        <div class="col-lg-8 col-sm-12 p-3">
+          <div class="form-group">
+                <label class="form-control-label">
+                  Quand aimerais-tu recevoir ce projet ?
+                    <p class="fw-lighter">Si il y a une date limite à respecter, merci de l’indiquer.</p>
+                </label>
+                <div class="form-check">
+                    <input class="form-check-input" type="radio" {{#isPlanificationIndetermine}}checked{{/isPlanificationIndetermine}}>
+                    <label class="form-check-label" for="indetermine">Pas déterminé</label>
+                 </div>
+                  <div class="form-check">
+                    <input class="form-check-input" type="radio" {{^isPlanificationIndetermine}}checked{{/isPlanificationIndetermine}}>
+                    <label class="form-check-label" for="autre">Autre</label>
+                    {{^isPlanificationIndetermine}}
+                        <p class="form-control" >{{planification}}</p>
+                    {{/isPlanificationIndetermine}} 
+                </div>              
+            </div>
+        </div>
+      </div>
+</form>
