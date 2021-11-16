@@ -1,4 +1,3 @@
-import { HttpEvent, HttpEventType } from '@angular/common/http';
 import { Component } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { FormService } from '../services/form.service';

@@ -9,7 +9,7 @@ export class FileService {
             "top": "0.25in",            // default is 0, units: mm, cm, in, px
             "right": "0.5in",
             "left": "0.5in"
-          },};
+          }};
         pdf.create(html, options).toStream(callback);
     }
 }

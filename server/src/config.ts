@@ -1,10 +1,6 @@
 
 
 export const config ={ 
-    server: {
-        url: "http://localhost:8081"
-    },
-
     mail: {
         from: "contact@cdpt.fr",
         subject: "Demande de Projet Artistique", 

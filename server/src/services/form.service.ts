@@ -7,7 +7,6 @@ import Mustache from "mustache";
 import { DemandeFlashDTO } from "./dto/demandeFlash.dto";
 import { DemandePeintureDTO } from "./dto/demandePeinture.dto";
 import { DemandeAutreDTO } from "./dto/demandeAutre.dto";
-import path from "path";
 
 
 export class FormService {

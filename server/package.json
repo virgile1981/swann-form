@@ -5,7 +5,8 @@
   "main": "server.js",
   "scripts": {
     "clean": "rimraf dist",
-    "build": "npm run clean && tsc -p tsconfig.build.json && npm run copy-resources",   
+    "build": "npm run clean && tsc -p tsconfig.build.json && npm run copy-resources",
+    "buildandrun": "npm run clean && tsc -p tsconfig.build.json && npm run copy-resources && node dist/server.js",
     "webpack:prod": "npm run clean && webpack --config webpack.server.prod.config.js && npm run copy-resources",
     "copy-resources": "ts-node scripts/copy-resources.ts",
     "test": "echo \"Error: no test specified\" && exit 1",
