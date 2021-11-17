@@ -1,10 +1,10 @@
    <form *ngIf="isInitFormVisible"  [formGroup]="form" (ngSubmit)="save()" >
       <div class="row mt-2 form-panel">
         <h2>Demande de projet artistique</h2>
-        <p>Bonjour et bienvenue sur mon formulaire de contact ! 
-          Si tu es arrivé.e jusqu’ici c’est que mon travail te plaît, et je te remercie déjà pour ton intérêt. 🥰
+        <p>Bonjour et bienvenue sur mon formulaire de contact !<br> 
+          Si tu es arrivé.e jusqu’ici c’est que mon travail te plaît, et je te remercie déjà pour ton intérêt. 😊<br>
           Ce formulaire servira de base pour la compréhension de ton projet. Il n’est pas très long mais prends ton temps pour bien le remplir, afin que je te renseigne au mieux sur la faisabilité et le prix.
-          Une fois le devis établi, si celui-ci te convient, nous pourrons fixer un rdv et démarrer ton dessin ! 😊</p>
+          Une fois le devis établi, si celui-ci te convient, nous pourrons fixer un rdv et démarrer ton dessin ! </p>
       </div>
         <div class="row form-panel justify-content-center mt-2">
           <div class="col-lg-8 col-sm-12 p-3">
@@ -60,9 +60,9 @@
                 </div>
 
                 <div class="form-check">
-                  <input #autreDemandeButton class="form-check-input" id="autre" type="radio" value="" name="demande"  formControlName="demande" required>
+                  <input class="form-check-input" id="autre" type="radio" value="autre" name="demande"  formControlName="demande" required>
                   <label class="form-check-label" for="autre">Autre</label>
-                  <input id="texte_autre" class="form-control" formControlName="demande" [attr.disabled]="autreDemandeButtonSelected() ? null : 'disabled'">
+  
                 </div>
               </div>
           </div>

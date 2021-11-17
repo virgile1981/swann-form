@@ -5,6 +5,7 @@ import { FormService } from '../services/form.service';
 import { DemandePersonnelleForm, IDemandePersonnelleForm } from '../models/demandePersonnelleForm.model';
 import { DataUtils, FileLoadError } from '../services/data-utils.service';
 import { AbstractDemandeComponent } from '../demande/abstractDemande.component';
+import { filesCapacityLimited } from '../shared/filesCapacityLimited.directive';
 
 @Component({
   selector: 'app-demande-personnelle',
@@ -26,8 +27,8 @@ export class DemandePersonnelleComponent  extends AbstractDemandeComponent  {
     descriptif: '',
     ville: [null,Validators.required],
     idee: ['',Validators.required],
-    imageInspiration: [null,Validators.required],
-    imageEmplacement: [null,Validators.required],
+    imagesInspiration: [null,Validators.required],
+    imagesEmplacement: [null,Validators.required],
     taille: ['',Validators.required],
     budget: [null,Validators.required],
     planification: [null,Validators.required]
@@ -36,6 +37,7 @@ export class DemandePersonnelleComponent  extends AbstractDemandeComponent  {
 
  constructor(private fb: FormBuilder, formService: FormService,protected dataUtils: DataUtils) {
    super(formService);
+   this.demandeForm.setValidators(filesCapacityLimited());
  }
 
   ngOnInit(): void {
@@ -84,8 +86,8 @@ export class DemandePersonnelleComponent  extends AbstractDemandeComponent  {
       descriptif: this.demandeForm.get(['descriptif'])!.value,
       ville: this.demandeForm.get(['ville'])!.value,
       idee: this.demandeForm.get(['idee'])!.value,
-      imageInspiration: this.demandeForm.get(['imageInspiration'])!.value,
-      imageEmplacement: this.demandeForm.get(['imageEmplacement'])!.value,
+      imagesInspiration: this.demandeForm.get(['imagesInspiration'])!.value,
+      imagesEmplacement: this.demandeForm.get(['imagesEmplacement'])!.value,
       taille: this.demandeForm.get(['taille'])!.value,
       budget: this.demandeForm.get(['budget'])!.value,
       planification: this.demandeForm.get(['planification'])!.value,

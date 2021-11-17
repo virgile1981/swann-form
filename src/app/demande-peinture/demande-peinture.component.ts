@@ -5,6 +5,7 @@ import { AbstractDemandeComponent } from '../demande/abstractDemande.component';
 import { DemandePeintureForm, IDemandePeintureForm } from '../models/demandePeintureForm.model';
 import { DataUtils, FileLoadError } from '../services/data-utils.service';
 import { FormService } from '../services/form.service';
+import { filesCapacityLimited } from '../shared/filesCapacityLimited.directive';
 
 @Component({
   selector: 'app-demande-peinture',
@@ -30,8 +31,7 @@ export class DemandePeintureComponent  extends AbstractDemandeComponent {
 
   demandeForm = this.fb.group({
     descriptif: '',
-    imageReference: [null,Validators.required],
-    imageReferenceContentType: [null,Validators.required],
+    imagesReference: [null,Validators.required],
     technique: ['',Validators.required],
     format: [null,Validators.required],
     budget: [null,Validators.required],
@@ -40,6 +40,7 @@ export class DemandePeintureComponent  extends AbstractDemandeComponent {
 
   constructor(private fb: FormBuilder,formService: FormService,protected dataUtils: DataUtils) {
     super(formService);
+    this.demandeForm.setValidators(filesCapacityLimited());
   }
 
   ngOnInit(): void {
@@ -93,7 +94,7 @@ protected createFromForm(): IDemandePeintureForm {
     demande: this.form.get(['demande'])!.value,
     
     descriptif: this.demandeForm.get(['descriptif'])!.value,
-    imageReference: this.demandeForm.get(['imageReference'])!.value,
+    imagesReference: this.demandeForm.get(['imagesReference'])!.value,
     technique: this.demandeForm.get(['technique'])!.value,
     format: this.demandeForm.get(['format'])!.value,   
     budget: this.demandeForm.get(['budget'])!.value,

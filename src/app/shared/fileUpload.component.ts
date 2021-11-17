@@ -14,10 +14,24 @@ export interface UploadFileInterface {
 @Component({
   selector: 'app-file-upload',
   template: `
-   <input type="file" accept="image/jpeg, image/png">
-   <div class="alert alert-danger" role="alert" *ngIf="showError">
-     Le fichier est trop volumineux. (taille max. {{limitSize/1000000}}Mo)
+  <div class="row">
+    <div *ngFor="let file of files" class="col justify-content-start" style="position: relative">
+      <img style="position: relative"
+      
+        [src]="'data:' + file.type + ';base64,' + file.buffer"
+        style="max-height: 100px"
+        alt="vehicule image"
+      />
+      
+        <button style="position: absolute; left:10px"
+          type="button"
+          (click)="clearInputImage(file)"
+          class="btn btn-secondary btn-xs pull-right">
+          x
+        </button>
     </div>
+  </div>
+  <input type="file" accept="image/jpeg, image/png">
   `,
   providers: [
     {
@@ -31,25 +45,27 @@ export class FileUploadComponent implements ControlValueAccessor {
     onChange: Function;
     public file: File | null = null;
     limitSize = Config.filetoupload.maxsize;
+    currentSize = 0;
     showError = false;
+    public files = [];
+
+
     @HostListener('change', ['$event.target.files']) emitFiles( event: FileList ) {
       const file = event && event.item(0);
 
-      if(file.size > Config.filetoupload.maxsize) {
-        this.showError = true;
-      } else {
-        this.showError = false;
         this.dataUtils.toBase64(file, (base64Data: string) => {
-          this.onChange({
-              'lastMod'    : file.lastModified,
-              'buffer'     : base64Data,
-              'name'       : file.name,
-              'size'       : file.size,
-              'type'       : file.type
-          } );
+          const fichier = {
+            'lastMod'    : file.lastModified,
+            'buffer'     : base64Data,
+            'name'       : file.name,
+            'size'       : file.size,
+            'type'       : file.type
+        }
+        this.files.push(fichier);
+        this.currentSize += fichier.size;
+        this.onChange( this.files);
       });
-        this.file = file;
-      }
+        
     }
 
     constructor( private host: ElementRef<HTMLInputElement>, private dataUtils: DataUtils ) {}
@@ -65,5 +81,11 @@ export class FileUploadComponent implements ControlValueAccessor {
     }
   
     registerOnTouched( fn: Function ) {
+    }
+
+    public clearInputImage(file) {
+      this.files = this.files.filter( elt => elt.size !== file.size);
+      this.onChange( this.files);
+      this.currentSize -= file.size;
     }
 }

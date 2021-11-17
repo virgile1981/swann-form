@@ -30,22 +30,11 @@ public form = this.fb.group({
 
   constructor(private fb: FormBuilder, private componentFactoryResolver: ComponentFactoryResolver) {}
   ngOnInit(): void {
-     //this.form.setValue({nom: "virgile", email:"bourse.virgile@gmail.com",majeur:"oui",demande:"personnelle"});
-     //this.save();
+    // this.form.setValue({nom: "virgile", email:"bourse.virgile@gmail.com",majeur:"oui",demande:"personnelle"});
+      //this.save();
   }
 
-  /**
-   * 
-   * @returns retourne vrai si le radiobutton "Autre" est selectionné pour le type de demande
-   */
-  public autreDemandeButtonSelected() : boolean {
-    if(this.autreDemandeButton) {
-      return this.autreDemandeButton.nativeElement.checked
-    }
-    return false;
-  }
-
-  /**
+   /**
    * 
    * @returns retourne vrai si le radiobutton "Autre" est selectionné pour l'age
    */

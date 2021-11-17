@@ -23,7 +23,7 @@
                     Montre moi les images de référence pour ton projet :
                     <p class="fw-lighter">Portrait, paysage, inspirations… Il est important de sélectionner des images de bonne qualité.</p>
                 </label>
-                <app-file-upload class="form-control" id="field_imageReference" name="imageReference" formControlName="imageReference"></app-file-upload>
+                <app-file-upload class="form-control" id="field_imagesReference" name="imagesReference" formControlName="imagesReference"></app-file-upload>
             </div>
         </div>
       </div>
@@ -100,7 +100,11 @@
             </div>
         </div>
       </div>
-
+      <div class="alert alert-danger" role="alert" *ngIf="demandeForm.errors != null && demandeForm.errors['filesCapacityLimited']">
+        Vos images ne peuvent pas être téléchargées car le poid total du formulaire dépasse 25Mo.<br>
+        Veuillez remplacer vos images par des fichiers moins lourds, ou mettre moins d'images.<br><br> 
+        Vous recevrez un  mail de confirmation à la fin de ce formulaire, et vous aurez la possibilité de m'envoyer plus d'images en répondant à ce mail.
+      </div>
       <div class="row form-panel justify-content-center mt-2">
         <div class="col-lg-8 col-sm-12 p-3">
           <button  class="btn btn-primary" type="submit" >Enregistrer</button>

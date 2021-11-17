@@ -8,6 +8,7 @@ export class AbstractDemandeComponent implements IDemandeComponent{
     isFormSent = false;
     form: FormGroup;
     progress: number = 0;
+    errorServer = false;
 
     constructor(protected formService: FormService) {
         if (this.constructor === AbstractDemandeComponent) {
@@ -35,6 +36,10 @@ export class AbstractDemandeComponent implements IDemandeComponent{
                 this.progress = 0;
               }, 1500);
           }
+        },error => {
+          this.isFormSent = true;
+          this.progress = -1;
+          this.errorServer = true;
         });
       }
     

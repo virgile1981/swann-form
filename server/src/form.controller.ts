@@ -17,6 +17,5 @@ export class FormController {
  
   createAPost = (request: express.Request, response: express.Response) => { 
     this.formService.save(request.body);
-    response.send("message recu");
   }
 }

@@ -8,8 +8,10 @@ export class DemandePersonnelleDTO extends DemandeDTO{
     descriptif?: string;
     ville?: string;
     idee?: string;
-    imageInspiration?: FileDTO;
-    imageEmplacement?: FileDTO;
+    imagesInspiration?: FileDTO[];
+    imagesEmplacement?: FileDTO[];
+    imagesInspirationThumbnail?: FileDTO[] = [];
+    imagesEmplacementThumbnail?: FileDTO[] = [];
     taille?: string;
     budget?: string;
     planification?: string;
@@ -32,15 +34,13 @@ export class DemandePersonnelleDTO extends DemandeDTO{
         return this.budget === "pas déterminé";
     }
 
-
-
     inject(demandePersonnelleDTO: DemandePersonnelleDTO): DemandePersonnelleDTO {
         super.inject(demandePersonnelleDTO);        
         this.descriptif = demandePersonnelleDTO.descriptif;
         this.ville = demandePersonnelleDTO.ville;
         this.idee = demandePersonnelleDTO.idee;
-        this.imageInspiration = demandePersonnelleDTO.imageInspiration;
-        this.imageEmplacement = demandePersonnelleDTO.imageEmplacement;
+        this.imagesInspiration = demandePersonnelleDTO.imagesInspiration;
+        this.imagesEmplacement = demandePersonnelleDTO.imagesEmplacement;
         this.taille = demandePersonnelleDTO.taille;
         this.budget = demandePersonnelleDTO.budget;
         this.planification = demandePersonnelleDTO.planification;

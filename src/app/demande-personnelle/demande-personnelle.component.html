@@ -2,10 +2,6 @@
     <div class="row form-panel justify-content-center mt-2">
       <div class="col-lg-8 col-sm-12 p-3">
         <h2>Commander un tatouage personnel</h2>
-        <div class="form-group">
-            <label class="form-control-label">Descriptif</label>
-            <input class="form-control" name="descriptif" id="field_descriptif" formControlName="descriptif" />
-          </div>
       </div>
     </div>
 
@@ -45,7 +41,7 @@
                     Montre moi en image ce que tu aimerais, ou des idées qui t’inspirent : 
                     <p class="fw-lighter">Attention, je peux m’inspirer d’une photo, mais je ne refais pas à l’identique un tatouage déjà existant. Je souhaite garantir à chacun de mes travaux un caractère unique. Tes images de référence me permettront de mieux comprendre ce que tu recherches, et le style artistique que tu aimes.  </p>
                 </label>
-              <app-file-upload class="form-control" id="field_imageInspiration" name="imageInspiration" formControlName="imageInspiration"></app-file-upload>
+              <app-file-upload class="form-control" name="imagesInspiration" formControlName="imagesInspiration"></app-file-upload>
              </div>
         </div>
       </div>
@@ -57,7 +53,7 @@
                     A quel emplacement souhaites-tu faire ton tatouage ? 
                     <p class="fw-lighter">Envoie-moi une photo de la zone de ton corps, que tu auras entourée sur ton téléphone. La photo doit être de bonne qualité, avec un bon éclairage et bien prise de face. Si tu hésites entre plusieurs zones, envoie moi plusieurs photos.</p>
                 </label>
-                <app-file-upload class="form-control" formControlName="imageEmplacement"></app-file-upload>
+                <app-file-upload class="form-control" formControlName="imagesEmplacement"></app-file-upload>
             </div>
         </div>
       </div>
@@ -122,17 +118,31 @@
             </div>
         </div>
       </div>
-
+        <div class="alert alert-danger" role="alert" *ngIf="demandeForm.errors != null && demandeForm.errors['filesCapacityLimited']">
+          Vos images ne peuvent pas être téléchargées car le poid total du formulaire dépasse 25Mo.<br>
+          Veuillez remplacer vos images par des fichiers moins lourds, ou mettre moins d'images.<br><br> 
+          Vous recevrez un  mail de confirmation à la fin de ce formulaire, et vous aurez la possibilité de m'envoyer plus d'images en répondant à ce mail.
+        </div>
     <div class="row form-panel justify-content-center mt-2">
       <div class="col-lg-8 col-sm-12 p-3">
-        <button  class="btn btn-primary" type="submit" [disabled]="!form.valid" [disabled]="!form.valid">Enregistrer</button>
+        <button  class="btn btn-primary" type="submit"  >Enregistrer</button>
       </div>
     </div>
 </form>
+
 <div class="progress form-group" *ngIf="progress > 0">
   <div class="progress-bar progress-bar-striped bg-success" role="progressbar" [style.width.%]="progress">
   </div>
 </div>
-<div class="alert alert-success" role="alert" *ngIf="progress == 100">
+<div class="alert alert-success" role="alert" *ngIf="progress === 100">
   Merci pour ta demande, ton formulaire a bien été enregistré. Tu recevras un message de confirmation sur ton adresse email dans les plus brefs délais.<br> À bientôt !
+</div>
+
+<div class="progress form-group" *ngIf="progress ===-1">
+  <div class="progress-bar progress-bar-striped bg-danger" role="progressbar" [style.width.%]="100">
+  </div>
+</div>
+<div class="alert alert-danger" role="alert" *ngIf="errorServer">
+  Il y a eu un problème lors du traitement de votre demande, le formulaire n'a pas pu être envoyé.<br> 
+  Réessayez plus tard, ou envoyez directement votre requête par mail à l'artiste.
 </div>

@@ -22,4 +22,13 @@
     </div>
     <div class="alert alert-success" role="alert" *ngIf="progress == 100">
     Merci pour ta demande, ton formulaire a bien été enregistré. Tu recevras un message de confirmation sur ton adresse email dans les plus brefs délais.<br> À bientôt !
-    </div>
+</div>
+
+<div class="progress form-group" *ngIf="progress ===-1">
+  <div class="progress-bar progress-bar-striped bg-danger" role="progressbar" [style.width.%]="100">
+  </div>
+</div>
+<div class="alert alert-danger" role="alert" *ngIf="errorServer">
+  Il y a eu un problème lors du traitement de votre demande, le formulaire n'a pas pu être envoyé.<br> 
+  Réessayez plus tard, ou envoyez directement votre requête par mail à l'artiste.
+</div>

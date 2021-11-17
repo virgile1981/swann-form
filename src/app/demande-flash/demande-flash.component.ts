@@ -4,6 +4,7 @@ import { FormService } from '../services/form.service';
 import { DemandeFlashForm, IDemandeFlashForm } from '../models/demandeFlashForm.model';
 import { DataUtils, FileLoadError } from '../services/data-utils.service';
 import { AbstractDemandeComponent } from '../demande/abstractDemande.component';
+import { filesCapacityLimited } from '../shared/filesCapacityLimited.directive';
 
 @Component({
   selector: 'app-demande-flash',
@@ -25,8 +26,8 @@ export class DemandeFlashComponent  extends AbstractDemandeComponent  {
     descriptif: '',
     ville: [null,Validators.required],
     modifications: ['',Validators.required],
-    imageFlash: [null,Validators.required],
-    imageEmplacement: [null,Validators.required],
+    imagesFlash: [null,Validators.required],
+    imagesEmplacement: [null,Validators.required],
     taille: [null,Validators.required],
     budget: [null,Validators.required],
     planification: [null,Validators.required]
@@ -34,6 +35,7 @@ export class DemandeFlashComponent  extends AbstractDemandeComponent  {
 
   constructor(private fb: FormBuilder,protected formService: FormService,protected dataUtils: DataUtils) {
     super(formService);
+    this.demandeForm.setValidators(filesCapacityLimited());
   }
 
   ngOnInit(): void {
@@ -82,8 +84,8 @@ export class DemandeFlashComponent  extends AbstractDemandeComponent  {
       descriptif: this.demandeForm.get(['descriptif'])!.value,
       ville: this.demandeForm.get(['ville'])!.value,
       modifications: this.demandeForm.get(['modifications'])!.value,
-      imageFlash: this.demandeForm.get(['imageFlash'])!.value,
-      imageEmplacement: this.demandeForm.get(['imageEmplacement'])!.value,
+      imagesFlash: this.demandeForm.get(['imagesFlash'])!.value,
+      imagesEmplacement: this.demandeForm.get(['imagesEmplacement'])!.value,
       taille: this.demandeForm.get(['taille'])!.value,
       budget: this.demandeForm.get(['budget'])!.value,
       planification: this.demandeForm.get(['planification'])!.value,

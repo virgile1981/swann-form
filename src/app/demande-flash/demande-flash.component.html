@@ -3,10 +3,6 @@
     <div class="row form-panel justify-content-center mt-2">
       <div class="col-lg-8 col-sm-12 p-3">
         <h2>Réserver un flash</h2>
-        <div class="form-group">
-            <label class="form-control-label">Descriptif</label>
-            <input class="form-control" name="descriptif" id="field_descriptif" formControlName="descriptif" />
-          </div>
       </div>
     </div>
 
@@ -34,7 +30,7 @@
                     Envoie-moi la photo du Flash que tu souhaites réserver :  
                     <p class="fw-lighter">Si plusieurs motifs sont présents sur l’image, merci de l’entourer. Tu peux me demander plusieurs Flashs.</p>
                 </label>
-                <app-file-upload class="form-control" id="field_imageFlash" name="imageFlash" formControlName="imageFlash"></app-file-upload>
+                <app-file-upload class="form-control" id="field_imagesFlash" name="imagesFlash" formControlName="imagesFlash"></app-file-upload>
             </div>
         </div>
       </div>
@@ -55,7 +51,7 @@
                     A quel emplacement souhaites-tu faire ton tatouage ? 
                     <p class="fw-lighter">Envoie-moi une photo de la zone de ton corps, que tu auras entourée sur ton téléphone. La photo doit être de bonne qualité, avec un bon éclairage et bien prise de face. Si tu hésites entre plusieurs zones, envoie moi plusieurs photos.</p>
                 </label>
-                <app-file-upload class="form-control" id="field_imageEmplacement" name="imageEmplacement" formControlName="imageEmplacement"></app-file-upload>
+                <app-file-upload class="form-control" id="field_imagesEmplacement" name="imagesEmplacement" formControlName="imagesEmplacement"></app-file-upload>
             </div>
         </div>
       </div>
@@ -110,7 +106,11 @@
             </div>
         </div>
       </div>
-
+      <div class="alert alert-danger" role="alert" *ngIf="demandeForm.errors != null && demandeForm.errors['filesCapacityLimited']">
+        Vos images ne peuvent pas être téléchargées car le poid total du formulaire dépasse 25Mo.<br>
+        Veuillez remplacer vos images par des fichiers moins lourds, ou mettre moins d'images.<br><br> 
+        Vous recevrez un  mail de confirmation à la fin de ce formulaire, et vous aurez la possibilité de m'envoyer plus d'images en répondant à ce mail.
+      </div>
     <div class="row form-panel justify-content-center mt-2">
       <div class="col-lg-8 col-sm-12 p-3">
         <button  class="btn btn-primary" type="submit" >Enregistrer</button>

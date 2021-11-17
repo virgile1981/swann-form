@@ -10,7 +10,7 @@ export class FormService {
   constructor(private http: HttpClient) { }
 
   save(form: any){
-    return this.http.post("/api/form", form, {
+    return this.http.post("http://localhost:8081"+"/api/form", form, {
       reportProgress: true,
       observe: 'events',
       headers: new HttpHeaders({ 
