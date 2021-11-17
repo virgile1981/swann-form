@@ -2,8 +2,7 @@
     <div class="row form-panel justify-content-center mt-2">
       <div class="col-lg-8 col-sm-12 p-3">
         <div class="form-group">
-            <label class="form-control-label">Commander un tatouage personnel (facultatif)  </label>
-            <p class="form-control">{{descriptif}}</p>
+            <h2>Commander un tatouage personnel (facultatif)  </h2>
           </div>
       </div>
     </div>
@@ -49,7 +48,9 @@
                     Montre moi en image ce que tu aimerais, ou des idées qui t’inspirent : 
                     <p class="fw-lighter">Attention, je peux m’inspirer d’une photo, mais je ne refais pas à l’identique un tatouage déjà existant. Je souhaite garantir à chacun de mes travaux un caractère unique. Tes images de référence me permettront de mieux comprendre ce que tu recherches, et le style artistique que tu aimes.  </p>
                 </label>
-                 <img style="width:200px" src="data:{{imageInspiration.type}};base64,{{imageInspiration.buffer}}" />
+                {{#imagesInspirationThumbnail}}
+                 <img style="width:200px" src="data:{{type}};base64,{{buffer}}" />
+                {{/imagesInspirationThumbnail}}
           </div>
         </div>
       </div>
@@ -61,7 +62,9 @@
                     A quel emplacement souhaites-tu faire ton tatouage ? 
                     <p class="fw-lighter">Envoie-moi une photo de la zone de ton corps, que tu auras entourée sur ton téléphone. La photo doit être de bonne qualité, avec un bon éclairage et bien prise de face. Si tu hésites entre plusieurs zones, envoie moi plusieurs photos.</p>
                 </label>
-             <img style="width:200px" src="data:{{imageEmplacement.type}};base64,{{imageEmplacement.buffer}}" />
+              {{#imagesEmplacementThumbnail}}
+             <img style="width:200px" src="data:{{type}};base64,{{buffer}}" />
+              {{/imagesEmplacementThumbnail}}
           </div>
         </div>
       </div>

@@ -1,4 +1,13 @@
 "use strict";
+var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
+    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
+    return new (P || (P = Promise))(function (resolve, reject) {
+        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
+        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
+        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
+        step((generator = generator.apply(thisArg, _arguments || [])).next());
+    });
+};
 var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
@@ -13,56 +22,93 @@ const mustache_1 = __importDefault(require("mustache"));
 const demandeFlash_dto_1 = require("./dto/demandeFlash.dto");
 const demandePeinture_dto_1 = require("./dto/demandePeinture.dto");
 const demandeAutre_dto_1 = require("./dto/demandeAutre.dto");
+const image_service_1 = require("./image.service");
 class FormService {
     constructor() {
+        this.demandeTemplate = "./templates/demandeForm.mustache";
+        this.demandePersonnelleTemplate = "./templates/demandePersonnelleForm.mustache";
+        this.demandeFlashTemplate = "./templates/demandeFlashForm.mustache";
+        this.demandePeintureTemplate = "./templates/demandePeintureForm.mustache";
+        this.demandeAutreTemplate = "./templates/demandeAutreForm.mustache";
         this.fileService = new file_service_1.FileService();
         this.emailService = new email_service_1.EmailService();
+        this.imageService = new image_service_1.ImageService();
     }
     save(demandeDTO) {
-        var _a, _b, _c, _d, _e;
-        var self = this;
-        var data;
-        var partials;
-        var html = fs_1.default.readFileSync("./templates/demandeForm.mustache", 'utf8');
-        switch (demandeDTO.demande) {
-            case "personnelle":
-                partials = { demandeForm: fs_1.default.readFileSync("./templates/demandePersonnelleForm.mustache", 'utf8') };
-                data = new demandePersonnelle_dto_1.DemandePersonnelleDTO().inject(demandeDTO);
-                if ((_a = data.imageEmplacement) === null || _a === void 0 ? void 0 : _a.buffer) {
-                    this.emailService.addBase64File(config_1.config.mail.emplacementFilename + ".jpg", data.imageEmplacement.buffer);
-                }
-                if ((_b = data.imageInspiration) === null || _b === void 0 ? void 0 : _b.buffer) {
-                    this.emailService.addBase64File(config_1.config.mail.inspirationFilename + ".jpg", data.imageInspiration.buffer);
-                }
-                break;
-            case "flash":
-                partials = { demandeForm: fs_1.default.readFileSync("./templates/demandeFlashForm.mustache", 'utf8') };
-                data = new demandeFlash_dto_1.DemandeFlashDTO().inject(demandeDTO);
-                if ((_c = data.imageEmplacement) === null || _c === void 0 ? void 0 : _c.buffer) {
-                    this.emailService.addBase64File(config_1.config.mail.emplacementFilename + ".jpg", data.imageEmplacement.buffer);
-                }
-                if ((_d = data.imageFlash) === null || _d === void 0 ? void 0 : _d.buffer) {
-                    this.emailService.addBase64File(config_1.config.mail.flashFilename + ".jpg", data.imageFlash.buffer);
-                }
-                break;
-            case "peinture":
-                partials = { demandeForm: fs_1.default.readFileSync("./templates/demandePeintureForm.mustache", 'utf8') };
-                data = new demandePeinture_dto_1.DemandePeintureDTO().inject(demandeDTO);
-                if ((_e = data.imageReference) === null || _e === void 0 ? void 0 : _e.buffer) {
-                    this.emailService.addBase64File(config_1.config.mail.referenceFilename + ".jpg", data.imageReference.buffer);
-                }
-                break;
-            default:
-                partials = { demandeForm: fs_1.default.readFileSync("./templates/demandeAutreForm.mustache", 'utf8') };
-                data = new demandeAutre_dto_1.DemandeAutreDTO().inject(demandeDTO);
-                break;
-        }
-        html = mustache_1.default.render(html, data, partials);
-        this.fileService.generatePDF(html, function (err, stream) {
-            if (demandeDTO.email != null) {
-                self.emailService.addFile(config_1.config.mail.pdfFilename + ".pdf", stream);
-                self.emailService.sendEmail(new Array(demandeDTO.email, config_1.config.mail.from));
+        return __awaiter(this, void 0, void 0, function* () {
+            var self = this;
+            var partials;
+            var html = fs_1.default.readFileSync(this.demandeTemplate, 'utf8');
+            switch (demandeDTO.demande) {
+                case "personnelle":
+                    partials = { demandeForm: fs_1.default.readFileSync(this.demandePersonnelleTemplate, 'utf8') };
+                    self.data = new demandePersonnelle_dto_1.DemandePersonnelleDTO().inject(demandeDTO);
+                    if (self.data.imagesEmplacement) {
+                        for (const image of self.data.imagesEmplacement) {
+                            if (image === null || image === void 0 ? void 0 : image.buffer) {
+                                this.emailService.addBase64File(config_1.config.mail.emplacementFilename + ".jpg", image.buffer);
+                                var thumbnail = yield this.imageService.generateThumbnail(image);
+                                self.data.imagesEmplacementThumbnail.push(thumbnail);
+                            }
+                        }
+                    }
+                    if (self.data.imagesInspiration) {
+                        for (const image of self.data.imagesInspiration) {
+                            if (image === null || image === void 0 ? void 0 : image.buffer) {
+                                this.emailService.addBase64File(config_1.config.mail.inspirationFilename + ".jpg", image.buffer);
+                                var thumbnail = yield this.imageService.generateThumbnail(image);
+                                self.data.imagesInspirationThumbnail.push(thumbnail);
+                            }
+                        }
+                    }
+                    break;
+                case "flash":
+                    partials = { demandeForm: fs_1.default.readFileSync(this.demandeFlashTemplate, 'utf8') };
+                    self.data = new demandeFlash_dto_1.DemandeFlashDTO().inject(demandeDTO);
+                    if (self.data.imagesEmplacement) {
+                        for (const image of self.data.imagesEmplacement) {
+                            if (image === null || image === void 0 ? void 0 : image.buffer) {
+                                this.emailService.addBase64File(config_1.config.mail.emplacementFilename + ".jpg", image.buffer);
+                                var thumbnail = yield this.imageService.generateThumbnail(image);
+                                self.data.imagesEmplacementThumbnail.push(thumbnail);
+                            }
+                        }
+                    }
+                    if (self.data.imagesFlash) {
+                        for (const image of self.data.imagesFlash) {
+                            if (image === null || image === void 0 ? void 0 : image.buffer) {
+                                this.emailService.addBase64File(config_1.config.mail.flashFilename + ".jpg", image.buffer);
+                                var thumbnail = yield this.imageService.generateThumbnail(image);
+                                self.data.imagesFlashThumbnail.push(thumbnail);
+                            }
+                        }
+                    }
+                    break;
+                case "peinture":
+                    partials = { demandeForm: fs_1.default.readFileSync(this.demandePeintureTemplate, 'utf8') };
+                    self.data = new demandePeinture_dto_1.DemandePeintureDTO().inject(demandeDTO);
+                    if (self.data.imagesReference) {
+                        for (const image of self.data.imagesEmplacement) {
+                            if (image === null || image === void 0 ? void 0 : image.buffer) {
+                                this.emailService.addBase64File(config_1.config.mail.referenceFilename + ".jpg", image.buffer);
+                                var thumbnail = yield this.imageService.generateThumbnail(image);
+                                self.data.imagesReferenceThumbnail.push(thumbnail);
+                            }
+                        }
+                    }
+                    break;
+                default:
+                    partials = { demandeForm: fs_1.default.readFileSync(this.demandeAutreTemplate, 'utf8') };
+                    self.data = new demandeAutre_dto_1.DemandeAutreDTO().inject(demandeDTO);
+                    break;
             }
+            html = mustache_1.default.render(html, self.data, partials);
+            this.fileService.generatePDF(html, function (err, stream) {
+                if (demandeDTO.email != null) {
+                    self.emailService.addFile(config_1.config.mail.pdfFilename + ".pdf", stream);
+                    self.emailService.sendEmail(new Array(demandeDTO.email, config_1.config.mail.from));
+                }
+            });
         });
     }
 }

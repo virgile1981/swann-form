@@ -28,8 +28,8 @@ class DemandeFlashDTO extends demande_dto_1.DemandeDTO {
         this.descriptif = demandeFlashDTO.descriptif;
         this.ville = demandeFlashDTO.ville;
         this.modifications = demandeFlashDTO.modifications;
-        this.imageFlash = demandeFlashDTO.imageFlash;
-        this.imageEmplacement = demandeFlashDTO.imageEmplacement;
+        this.imagesFlash = demandeFlashDTO.imagesFlash;
+        this.imagesEmplacement = demandeFlashDTO.imagesEmplacement;
         this.taille = demandeFlashDTO.taille;
         this.budget = demandeFlashDTO.budget;
         this.planification = demandeFlashDTO.planification;

@@ -37,7 +37,7 @@ class DemandePeintureDTO extends demande_dto_1.DemandeDTO {
         this.descriptif = demandePeintureDTO.descriptif;
         this.format = demandePeintureDTO.format;
         this.technique = demandePeintureDTO.technique;
-        this.imageReference = demandePeintureDTO.imageReference;
+        this.imagesReference = demandePeintureDTO.imagesReference;
         this.budget = demandePeintureDTO.budget;
         this.planification = demandePeintureDTO.planification;
         return this;

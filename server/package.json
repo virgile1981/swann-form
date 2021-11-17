@@ -5,7 +5,7 @@
   "main": "server.js",
   "scripts": {
     "clean": "rimraf dist",
-    "build": "npm run clean && tsc -p tsconfig.build.json && npm run copy-resources",
+    "build:prod": "npm run clean && tsc -p tsconfig.build.json && npm run copy-resources",
     "buildandrun": "npm run clean && tsc -p tsconfig.build.json && npm run copy-resources && node dist/server.js",
     "webpack:prod": "npm run clean && webpack --config webpack.server.prod.config.js && npm run copy-resources",
     "copy-resources": "ts-node scripts/copy-resources.ts",
@@ -21,7 +21,8 @@
     "mustache": "^4.2.0",
     "node": "^17.0.1",
     "nodemailer": "^6.7.0",
-    "sharp": "^0.29.3"
+    "sharp": "^0.29.3",
+    "cors":"^2.8.5"
   },
   "devDependencies": {
     "@types/express": "^4.17.13",

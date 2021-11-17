@@ -28,7 +28,6 @@ class FormController {
         this.router = express.Router();
         this.createAPost = (request, response) => {
             this.formService.save(request.body);
-            response.send("message recu");
         };
         this.formService = new form_service_1.FormService();
         this.intializeRoutes();

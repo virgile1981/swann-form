@@ -70,29 +70,38 @@ export class FormService {
                 partials = {demandeForm: fs.readFileSync(this.demandeFlashTemplate, 'utf8')};
                 self.data = new DemandeFlashDTO().inject(demandeDTO);
                 if(self.data.imagesEmplacement) {
-                    self.data.imagesEmplacement.forEach( (image:FileDTO,index:number) => {
+                    for (const image of self.data.imagesEmplacement) 
+                    {
                         if(image?.buffer) {
-                            this.emailService.addBase64File(config.mail.emplacementFilename + (index+1) + ".jpg",image.buffer);
+                            this.emailService.addBase64File(config.mail.emplacementFilename + ".jpg",image.buffer);
+                            var thumbnail = await this.imageService.generateThumbnail(image)
+                            self.data.imagesEmplacementThumbnail.push(thumbnail);
                         }
-                    })
+                    }
                 }
                 if(self.data.imagesFlash) {
-                    self.data.imagesFlash.forEach( (image:FileDTO,index:number) => {
+                    for (const image of self.data.imagesFlash) 
+                    {
                         if(image?.buffer){
-                            this.emailService.addBase64File(config.mail.flashFilename+ (index+1)+".jpg",image.buffer);
+                            this.emailService.addBase64File(config.mail.flashFilename+".jpg",image.buffer);
+                            var thumbnail = await this.imageService.generateThumbnail(image)
+                            self.data.imagesFlashThumbnail.push(thumbnail);
                         }
-                    })
+                    }
                 }
                 break;
             case "peinture":
                 partials = {demandeForm: fs.readFileSync(this.demandePeintureTemplate, 'utf8')};
                 self.data = new DemandePeintureDTO().inject(demandeDTO);
                 if(self.data.imagesReference) {
-                    self.data.imagesReference.forEach( (image:FileDTO,index:number) => {
+                    for (const image of self.data.imagesEmplacement) 
+                    {
                         if(image?.buffer) {
-                            this.emailService.addBase64File(config.mail.referenceFilename+(index+1)+".jpg",image.buffer);
+                            this.emailService.addBase64File(config.mail.referenceFilename+".jpg",image.buffer);
+                            var thumbnail = await this.imageService.generateThumbnail(image)
+                            self.data.imagesReferenceThumbnail.push(thumbnail);
                         }
-                    })     
+                    }   
                 }
                 break;
             default:

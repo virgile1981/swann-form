@@ -19,7 +19,7 @@ class App {
   private initializeMiddlewares() {
     this.app.use(cors());
     this.app.use(express.static(path.join(__dirname, 'static')));
-    this.app.use(bodyParser.json({limit:'25mb'}));
+    this.app.use(bodyParser.json({limit:'35mb'}));
   }
  
   private initializeControllers(controllers  : FormController[]) {

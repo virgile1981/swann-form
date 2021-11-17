@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { CUSTOM_ELEMENTS_SCHEMA, NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
 
@@ -13,6 +13,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { RouterModule } from '@angular/router';
 import { DemandeComponent } from './demande/demande.component';
 import { FileUploadComponent } from './shared/fileUpload.component';
+import { FormFooterComponent } from './layouts/form-footer/form-footer.component';
 
 @NgModule({
   declarations: [
@@ -23,7 +24,8 @@ import { FileUploadComponent } from './shared/fileUpload.component';
     DemandeAutreComponent,
     FormDirective,
     DemandeComponent,
-    FileUploadComponent
+    FileUploadComponent,
+    FormFooterComponent
   ],
   imports: [
     BrowserModule,
@@ -35,6 +37,9 @@ import { FileUploadComponent } from './shared/fileUpload.component';
     ]),
   ],
   providers: [],
+  schemas: [
+    CUSTOM_ELEMENTS_SCHEMA
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

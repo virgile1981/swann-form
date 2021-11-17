@@ -7,6 +7,8 @@ class DemandePersonnelleDTO extends demande_dto_1.DemandeDTO {
         super(...arguments);
         this.villeValues = ["Paris", "Toulouse", "Nantes", "Brétignolles-sur-Mer"];
         this.planificationValues = ["Le plus tôt possible", "Le mois prochain", "L'année prochaine"];
+        this.imagesInspirationThumbnail = [];
+        this.imagesEmplacementThumbnail = [];
     }
     isAutreVille() {
         if (this.ville != null) {
@@ -28,8 +30,8 @@ class DemandePersonnelleDTO extends demande_dto_1.DemandeDTO {
         this.descriptif = demandePersonnelleDTO.descriptif;
         this.ville = demandePersonnelleDTO.ville;
         this.idee = demandePersonnelleDTO.idee;
-        this.imageInspiration = demandePersonnelleDTO.imageInspiration;
-        this.imageEmplacement = demandePersonnelleDTO.imageEmplacement;
+        this.imagesInspiration = demandePersonnelleDTO.imagesInspiration;
+        this.imagesEmplacement = demandePersonnelleDTO.imagesEmplacement;
         this.taille = demandePersonnelleDTO.taille;
         this.budget = demandePersonnelleDTO.budget;
         this.planification = demandePersonnelleDTO.planification;

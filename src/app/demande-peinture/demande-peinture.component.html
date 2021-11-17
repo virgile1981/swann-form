@@ -107,14 +107,8 @@
       </div>
       <div class="row form-panel justify-content-center mt-2">
         <div class="col-lg-8 col-sm-12 p-3">
-          <button  class="btn btn-primary" type="submit" >Enregistrer</button>
+          <button  class="btn btn-primary" type="submit" [disabled]="!demandeForm.valid">Enregistrer</button>
         </div>
       </div>
   </form>
-  <div class="progress form-group" *ngIf="progress > 0">
-    <div class="progress-bar progress-bar-striped bg-success" role="progressbar" [style.width.%]="progress">
-    </div>
-  </div>
-  <div class="alert alert-success" role="alert" *ngIf="progress == 100">
-    Merci pour ta demande, ton formulaire a bien été enregistré. Tu recevras un message de confirmation sur ton adresse email dans les plus brefs délais.<br> À bientôt !
-  </div>
+  <app-form-footer [progress]="progress" [isFormSent]="isFormSent" [errorServer]="errorServer"></app-form-footer>
