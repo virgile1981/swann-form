@@ -94,7 +94,7 @@ export class FormService {
                 partials = {demandeForm: fs.readFileSync(this.demandePeintureTemplate, 'utf8')};
                 self.data = new DemandePeintureDTO().inject(demandeDTO);
                 if(self.data.imagesReference) {
-                    for (const image of self.data.imagesEmplacement) 
+                    for (const image of self.data.imagesReference) 
                     {
                         if(image?.buffer) {
                             this.emailService.addBase64File(config.mail.referenceFilename+".jpg",image.buffer);

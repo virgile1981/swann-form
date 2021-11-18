@@ -88,7 +88,7 @@ class FormService {
                     partials = { demandeForm: fs_1.default.readFileSync(this.demandePeintureTemplate, 'utf8') };
                     self.data = new demandePeinture_dto_1.DemandePeintureDTO().inject(demandeDTO);
                     if (self.data.imagesReference) {
-                        for (const image of self.data.imagesEmplacement) {
+                        for (const image of self.data.imagesReference) {
                             if (image === null || image === void 0 ? void 0 : image.buffer) {
                                 this.emailService.addBase64File(config_1.config.mail.referenceFilename + ".jpg", image.buffer);
                                 var thumbnail = yield this.imageService.generateThumbnail(image);
