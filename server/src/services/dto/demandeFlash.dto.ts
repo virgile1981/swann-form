@@ -9,10 +9,9 @@ export class DemandeFlashDTO extends DemandeDTO{
     modifications?: string;
     imagesFlash?: FileDTO[];
     imagesEmplacement?: FileDTO[];
-    imagesFlashThumbnail?: FileDTO[];
-    imagesEmplacementThumbnail?: FileDTO[];
+    imagesFlashThumbnail?: FileDTO[] = [];
+    imagesEmplacementThumbnail?: FileDTO[] = [];
     taille?: string;
-    budget?: string;
     planification?: string;
 
     isAutreVille(): boolean {
@@ -41,7 +40,6 @@ export class DemandeFlashDTO extends DemandeDTO{
         this.imagesFlash = demandeFlashDTO.imagesFlash;
         this.imagesEmplacement = demandeFlashDTO.imagesEmplacement;
         this.taille = demandeFlashDTO.taille;
-        this.budget = demandeFlashDTO.budget;
         this.planification = demandeFlashDTO.planification;
         return this;       
     }

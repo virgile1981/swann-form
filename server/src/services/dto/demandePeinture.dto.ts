@@ -15,7 +15,7 @@ export class DemandePeintureDTO extends DemandeDTO{
 
     descriptif?: string;
     imagesReference?:FileDTO[];
-    imagesReferenceThumbnail? :FileDTO[];
+    imagesReferenceThumbnail? :FileDTO[] = [];
     technique?: string;
     format?: string;
     budget?: string;

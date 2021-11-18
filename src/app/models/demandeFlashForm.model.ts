@@ -7,7 +7,6 @@ export interface IDemandeFlashForm extends IForm {
     imagesFlash?: string,
     imagesEmplacement?: string,
     taille?: string,
-    budget?: string,
     planification?: string
 }
 
@@ -20,7 +19,5 @@ export class DemandeFlashForm implements IDemandeFlashForm {
         public imagesFlash?: string,
         public imagesEmplacement?: string, 
         public taille?: string,
-        public budget?: string,
         public planification?: string){}
-    
 }

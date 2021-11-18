@@ -29,11 +29,10 @@ export class DemandeFlashComponent  extends AbstractDemandeComponent  {
     imagesFlash: [null,Validators.required],
     imagesEmplacement: [null,Validators.required],
     taille: [null,Validators.required],
-    budget: [null,Validators.required],
     planification: [null,Validators.required]
   });
 
-  constructor(private fb: FormBuilder,protected formService: FormService,protected dataUtils: DataUtils) {
+  constructor(private fb: FormBuilder,protected formService: FormService) {
     super(formService);
     this.demandeForm.setValidators(filesCapacityLimited());
   }
@@ -87,7 +86,6 @@ export class DemandeFlashComponent  extends AbstractDemandeComponent  {
       imagesFlash: this.demandeForm.get(['imagesFlash'])!.value,
       imagesEmplacement: this.demandeForm.get(['imagesEmplacement'])!.value,
       taille: this.demandeForm.get(['taille'])!.value,
-      budget: this.demandeForm.get(['budget'])!.value,
       planification: this.demandeForm.get(['planification'])!.value,
     };
   }

@@ -13,6 +13,7 @@ class DemandePeintureDTO extends demande_dto_1.DemandeDTO {
             "Je ne sais pas, à voir selon les conseils de l’artiste"
         ];
         this.formatValues = ["A4", "A3", "A2"];
+        this.imagesReferenceThumbnail = [];
     }
     isAutreFormat() {
         if (this.format != null) {

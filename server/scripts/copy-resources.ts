@@ -7,6 +7,7 @@ createFolderIfNotExist(out);
 
 let clientDist = path.join(__dirname, '..', '..', 'dist', 'static');
 let template = path.join(__dirname,'..','templates');
+let ssl = path.join(__dirname,'..','ssl');
 
 if (fs.existsSync(clientDist)) {
     shell.cp('-R', clientDist, out);
@@ -14,6 +15,10 @@ if (fs.existsSync(clientDist)) {
 
 if (fs.existsSync(template)) {
     shell.cp('-R', template, out);
+}
+
+if (fs.existsSync(ssl)) {
+    shell.cp('-R', ssl, out);
 }
 
 function createFolderIfNotExist(outDir: string): void {

@@ -24,8 +24,10 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = __importDefault(require("express"));
 const cors_1 = __importDefault(require("cors"));
-const bodyParser = __importStar(require("body-parser"));
+const fs_1 = __importDefault(require("fs"));
 const path_1 = __importDefault(require("path"));
+const https_1 = __importDefault(require("https"));
+const bodyParser = __importStar(require("body-parser"));
 class App {
     constructor(controllers, port) {
         this.app = (0, express_1.default)();
@@ -36,7 +38,7 @@ class App {
     initializeMiddlewares() {
         this.app.use((0, cors_1.default)());
         this.app.use(express_1.default.static(path_1.default.join(__dirname, 'static')));
-        this.app.use(bodyParser.json({ limit: '25mb' }));
+        this.app.use(bodyParser.json({ limit: '35mb' }));
     }
     initializeControllers(controllers) {
         controllers.forEach((controller) => {
@@ -44,8 +46,12 @@ class App {
         });
     }
     listen() {
-        this.app.listen(this.port, () => {
-            console.log(`App listening on the port ${this.port}`);
+        var options = {
+            key: fs_1.default.readFileSync(path_1.default.join(__dirname, '..', 'ssl', 'server.key'), 'utf8'),
+            cert: fs_1.default.readFileSync(path_1.default.join(__dirname, '..', 'ssl', 'server.cert'), 'utf8')
+        };
+        https_1.default.createServer(options, this.app).listen(this.port, () => {
+            console.log(`App https listening on the port ${this.port}`);
         });
     }
 }
