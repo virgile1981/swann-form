@@ -2,8 +2,7 @@ import express from 'express';
 import cors from 'cors';
 import fs from 'fs';
 import path from 'path';
-import http from 'http';
-import https from 'https';
+//import https from 'https';
 import * as bodyParser from 'body-parser';
 import { FormController } from './form.controller';
 
@@ -39,8 +38,11 @@ class App {
       key: fs.readFileSync(path.join(__dirname ,'..','ssl','server.key'),'utf8'),
       cert: fs.readFileSync(path.join(__dirname,'..','ssl','server.cert'),'utf8')
     }
-     https.createServer(options, this.app).listen(this.port, () => {
+    /* https.createServer(options, this.app).listen(this.port, () => {
       console.log(`App https listening on the port ${this.port}`);
+    });*/
+    this.app.listen(this.port, () => {
+      console.log(`App http listening on the port ${this.port}`);
     });
   }
 }

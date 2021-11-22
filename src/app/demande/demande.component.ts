@@ -1,9 +1,5 @@
 import { Component, ComponentFactoryResolver, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
-import { DemandeAutreComponent } from '../demande-autre/demande-autre.component';
-import { DemandeFlashComponent } from '../demande-flash/demande-flash.component';
-import { DemandePeintureComponent } from '../demande-peinture/demande-peinture.component';
-import { DemandePersonnelleComponent } from '../demande-personnelle/demande-personnelle.component';
 import { FormDirective } from '../form.directive';
 import { IDemandeComponent } from './demande.interface.component';
 
@@ -45,29 +41,39 @@ public form = this.fb.group({
     return false;
   }
 
-
-  save() {
+  injectDemandeComponent(component: any) {
     const viewContainerRef = this.demandeForm.viewContainerRef;
     viewContainerRef.clear();
-    let demandeComponent = null;
+    const demandeComponent = this.componentFactoryResolver.resolveComponentFactory(component);
+    const componentRef = viewContainerRef.createComponent<any>(demandeComponent);
+    componentRef.instance.form = this.form;  
+  }
+
+  save() {
+    
     this.isInitFormVisible = false;
    switch(this.form.get("demande").value) {
      case "personnelle" :
-        demandeComponent = this.componentFactoryResolver.resolveComponentFactory(DemandePersonnelleComponent);
+        import('../demande-personnelle/demande-personnelle.component').then (({DemandePersonnelleComponent}) => {
+          this.injectDemandeComponent(DemandePersonnelleComponent);
+        })
         break;
      case "flash" :
-        demandeComponent = this.componentFactoryResolver.resolveComponentFactory(DemandeFlashComponent);
+        import('../demande-flash/demande-flash.component').then (({DemandeFlashComponent}) => {
+          this.injectDemandeComponent(DemandeFlashComponent);
+        })
         break;
      case "peinture" :
-        demandeComponent = this.componentFactoryResolver.resolveComponentFactory(DemandePeintureComponent);
+        import('../demande-peinture/demande-peinture.component').then (({DemandePeintureComponent}) => {
+          this.injectDemandeComponent(DemandePeintureComponent);
+        })
         break;
       default:
-        demandeComponent = this.componentFactoryResolver.resolveComponentFactory(DemandeAutreComponent);
+        import('../demande-autre/demande-autre.component').then (({DemandeAutreComponent}) => {
+          this.injectDemandeComponent(DemandeAutreComponent);
+        })
         break;
    }
-
-    const componentRef = viewContainerRef.createComponent<DemandeComponent>(demandeComponent);
-    componentRef.instance.form = this.form;
   }
 
 }
