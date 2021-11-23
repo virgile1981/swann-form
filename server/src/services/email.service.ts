@@ -1,12 +1,13 @@
+import EventEmitter from 'events';
 import { ReadStream } from 'fs';
-import nodemailer from 'nodemailer';
+import nodemailer, { Transporter } from 'nodemailer';
 import { config } from '../config';
 
 export class EmailService {
     options = {};
     attachments = new Array();
 
-    transporter: any;
+    transporter: Transporter;
     constructor() {
         this.transporter = nodemailer.createTransport({
             host: config.mail.host,
@@ -34,13 +35,24 @@ export class EmailService {
        this.attachments.push({filename: filename, content: stream });
     }
 
-    sendEmail(to: Array<string>): void {
+    clearFiles() {
+        this.attachments = new Array();
+    }
+    
+    sendEmail(to: Array<string>,eventEmitter: EventEmitter): void {
         // send mail with defined transport object
         this.transporter.sendMail(
             {...this.options,
                 attachments: this.attachments,
                 to: to.join(',')   // list of receivers
+        },(error, response) => {
+           this.clearFiles();
+            if(error) {
+               eventEmitter.emit('error',error);
+            } else {
+                eventEmitter.emit('success');
+            }
         });
-        this.attachments = new Array();
+        
     }
 }

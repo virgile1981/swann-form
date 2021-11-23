@@ -6,7 +6,7 @@ import { IDemandeComponent } from "./demande.interface.component";
 
 export class AbstractDemandeComponent implements IDemandeComponent{
     isFormSent = false;
-
+    isEmailSent = false;
     form: FormGroup;
     progress: number = 0;
     errorServer = false;
@@ -41,7 +41,11 @@ export class AbstractDemandeComponent implements IDemandeComponent{
           this.isFormSent = true;
           this.progress = -1;
           this.errorServer = true;
-        });
+        },() => {
+          this.isFormSent = true;
+          this.isEmailSent = true;
+        }
+        );
       }
     
       protected createFromForm(): IForm {

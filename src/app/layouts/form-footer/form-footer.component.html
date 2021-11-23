@@ -1,5 +1,5 @@
 <!-- Le formulaire est en cours d'envoi -->
-<div class="alert alert-primary" role="alert" *ngIf="progress ===0 && isFormSent">
+<div class="alert alert-primary" role="alert" *ngIf="isFormSent && !isEmailSent && !errorServer">
     Connection au serveur en cours. Veuillez patienter... 
 </div>
 
@@ -9,7 +9,7 @@
     </div>
   </div>
   
-  <div class="alert alert-success" role="alert" *ngIf="progress >=100">
+  <div class="alert alert-success" role="alert" *ngIf="isEmailSent">
     Merci pour ta demande, ton formulaire a bien été enregistré. Tu recevras un message de confirmation sur ton adresse email dans les plus brefs délais.<br> À bientôt !
   </div>
   <!-- Si probleme serveur afficher ce message-->

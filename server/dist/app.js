@@ -24,7 +24,6 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = __importDefault(require("express"));
 const cors_1 = __importDefault(require("cors"));
-const fs_1 = __importDefault(require("fs"));
 const path_1 = __importDefault(require("path"));
 //import https from 'https';
 const bodyParser = __importStar(require("body-parser"));
@@ -46,13 +45,6 @@ class App {
         });
     }
     listen() {
-        var options = {
-            key: fs_1.default.readFileSync(path_1.default.join(__dirname, '..', 'ssl', 'server.key'), 'utf8'),
-            cert: fs_1.default.readFileSync(path_1.default.join(__dirname, '..', 'ssl', 'server.cert'), 'utf8')
-        };
-        /* https.createServer(options, this.app).listen(this.port, () => {
-          console.log(`App https listening on the port ${this.port}`);
-        });*/
         this.app.listen(this.port, () => {
             console.log(`App http listening on the port ${this.port}`);
         });

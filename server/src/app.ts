@@ -34,13 +34,6 @@ class App {
  
   public listen() {
     
-    var options = {
-      key: fs.readFileSync(path.join(__dirname ,'..','ssl','server.key'),'utf8'),
-      cert: fs.readFileSync(path.join(__dirname,'..','ssl','server.cert'),'utf8')
-    }
-    /* https.createServer(options, this.app).listen(this.port, () => {
-      console.log(`App https listening on the port ${this.port}`);
-    });*/
     this.app.listen(this.port, () => {
       console.log(`App http listening on the port ${this.port}`);
     });

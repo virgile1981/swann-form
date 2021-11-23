@@ -34,7 +34,7 @@ class FormService {
         this.emailService = new email_service_1.EmailService();
         this.imageService = new image_service_1.ImageService();
     }
-    save(demandeDTO) {
+    save(demandeDTO, eventEmitter) {
         return __awaiter(this, void 0, void 0, function* () {
             var self = this;
             var partials;
@@ -103,10 +103,13 @@ class FormService {
                     break;
             }
             html = mustache_1.default.render(html, self.data, partials);
-            this.fileService.generatePDF(html, function (err, stream) {
+            this.fileService.generatePDF(html, function (error, stream) {
+                if (error) {
+                    eventEmitter.emit('error');
+                }
                 if (demandeDTO.email != null) {
                     self.emailService.addFile(config_1.config.mail.pdfFilename + ".pdf", stream);
-                    self.emailService.sendEmail(new Array(demandeDTO.email, config_1.config.mail.from));
+                    self.emailService.sendEmail(new Array(demandeDTO.email, config_1.config.mail.from), eventEmitter);
                 }
             });
         });

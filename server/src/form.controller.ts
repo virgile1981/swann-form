@@ -1,3 +1,4 @@
+import EventEmitter from 'events';
 import * as express from 'express';
 import { FormService } from './services/form.service';
 
@@ -15,7 +16,17 @@ export class FormController {
     this.router.post(this.path, this.createAPost);
   }
  
-  createAPost = (request: express.Request, response: express.Response) => { 
-    this.formService.save(request.body);
+  createAPost = async (request: express.Request, response: express.Response) => { 
+    const eventEmitter = new EventEmitter();
+    eventEmitter.on('success', () => {
+      console.log("reussite d'envoi de l'email")
+      response.status(200).send();
+    });
+    
+    eventEmitter.on('error', (error) => {
+      console.log("erreur d'envoi de l'email " + error)
+      response.status(500).send();;
+    });
+    this.formService.save(request.body, eventEmitter);
   }
 }

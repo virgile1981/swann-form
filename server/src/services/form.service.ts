@@ -9,6 +9,7 @@ import { DemandePeintureDTO } from "./dto/demandePeinture.dto";
 import { DemandeAutreDTO } from "./dto/demandeAutre.dto";
 import { ImageService } from "./image.service";
 import { FileDTO } from "./dto/file.dto";
+import EventEmitter from "events";
 
 
 export class FormService {
@@ -36,7 +37,7 @@ export class FormService {
         this.emailService = new EmailService();
         this.imageService = new ImageService();
   }
-    async save(demandeDTO: any) {
+    async save(demandeDTO: any, eventEmitter: EventEmitter) {
     var self = this;
     var partials;
     var html = fs.readFileSync(this.demandeTemplate, 'utf8');
@@ -109,11 +110,14 @@ export class FormService {
                 self.data = new DemandeAutreDTO().inject(demandeDTO);
                 break;
         }       
-        html = Mustache.render(html, self.data,partials);
-        this.fileService.generatePDF(html, function(err, stream) {
+        html =  Mustache.render(html, self.data,partials);
+        this.fileService.generatePDF(html, function(error, stream) {
+            if(error) {
+                eventEmitter.emit('error');
+            }
             if(demandeDTO.email != null) {
-                self.emailService.addFile(config.mail.pdfFilename+".pdf",stream);
-                self.emailService.sendEmail(new Array(demandeDTO.email,config.mail.from));
+                 self.emailService.addFile(config.mail.pdfFilename+".pdf",stream);
+                 self.emailService.sendEmail(new Array(demandeDTO.email,config.mail.from),eventEmitter);
             }
         });
 }

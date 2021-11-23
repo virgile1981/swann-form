@@ -28,11 +28,21 @@ class EmailService {
     addFile(filename, stream) {
         this.attachments.push({ filename: filename, content: stream });
     }
-    sendEmail(to) {
+    clearFiles() {
+        this.attachments = new Array();
+    }
+    sendEmail(to, eventEmitter) {
         // send mail with defined transport object
         this.transporter.sendMail(Object.assign(Object.assign({}, this.options), { attachments: this.attachments, to: to.join(',') // list of receivers
-         }));
-        this.attachments = new Array();
+         }), (error, response) => {
+            this.clearFiles();
+            if (error) {
+                eventEmitter.emit('error', error);
+            }
+            else {
+                eventEmitter.emit('success');
+            }
+        });
     }
 }
 exports.EmailService = EmailService;

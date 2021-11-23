@@ -18,17 +18,40 @@ var __importStar = (this && this.__importStar) || function (mod) {
     __setModuleDefault(result, mod);
     return result;
 };
+var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
+    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
+    return new (P || (P = Promise))(function (resolve, reject) {
+        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
+        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
+        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
+        step((generator = generator.apply(thisArg, _arguments || [])).next());
+    });
+};
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.FormController = void 0;
+const events_1 = __importDefault(require("events"));
 const express = __importStar(require("express"));
 const form_service_1 = require("./services/form.service");
 class FormController {
     constructor() {
         this.path = '/form';
         this.router = express.Router();
-        this.createAPost = (request, response) => {
-            this.formService.save(request.body);
-        };
+        this.createAPost = (request, response) => __awaiter(this, void 0, void 0, function* () {
+            const eventEmitter = new events_1.default();
+            eventEmitter.on('success', () => {
+                console.log("reussite d'envoi de l'email");
+                response.status(200).send();
+            });
+            eventEmitter.on('error', (error) => {
+                console.log("erreur d'envoi de l'email " + error);
+                response.status(500).send();
+                ;
+            });
+            this.formService.save(request.body, eventEmitter);
+        });
         this.formService = new form_service_1.FormService();
         this.intializeRoutes();
     }

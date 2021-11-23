@@ -13,6 +13,8 @@ export class FormFooterComponent implements OnInit {
   progress: number;
   @Input()
   isFormSent: boolean;
+  @Input()
+  isEmailSent: boolean;
 
   constructor() { }
 
