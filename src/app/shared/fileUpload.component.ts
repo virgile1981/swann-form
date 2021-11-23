@@ -52,7 +52,7 @@ export class FileUploadComponent implements ControlValueAccessor {
 
     @HostListener('change', ['$event.target.files']) emitFiles( event: FileList ) {
       const file = event && event.item(0);
-
+      const self = this;
         this.dataUtils.toBase64(file, (base64Data: string) => {
           const fichier = {
             'lastMod'    : file.lastModified,
@@ -61,9 +61,11 @@ export class FileUploadComponent implements ControlValueAccessor {
             'size'       : file.size,
             'type'       : file.type
         }
+        
         this.files.push(fichier);
-        this.currentSize += fichier.size;
+        self.currentSize += fichier.size;
         this.onChange( this.files);
+        this.writeValue(null);
       });
         
     }
@@ -72,8 +74,10 @@ export class FileUploadComponent implements ControlValueAccessor {
   
     writeValue( value: null ) {
       // clear file input
-     // this.host.nativeElement.value = '';
-     // this.file = null;
+      console.log("host "+this.host);
+     const input = this.host.nativeElement.querySelector('input');
+     input.value = '';
+      this.file = null;
     }
   
     registerOnChange( fn: Function ) {
@@ -88,4 +92,8 @@ export class FileUploadComponent implements ControlValueAccessor {
       this.onChange( this.files);
       this.currentSize -= file.size;
     }
+
+  getCurrentSize() {
+    return this.currentSize;
+  }
 }

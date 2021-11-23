@@ -46,12 +46,12 @@ public form = this.fb.group({
     viewContainerRef.clear();
     const demandeComponent = this.componentFactoryResolver.resolveComponentFactory(component);
     const componentRef = viewContainerRef.createComponent<any>(demandeComponent);
-    componentRef.instance.form = this.form;  
+    componentRef.instance.form = this.form;
   }
 
   save() {
     
-    this.isInitFormVisible = false;
+   this.isInitFormVisible = false;
    switch(this.form.get("demande").value) {
      case "personnelle" :
         import('../demande-personnelle/demande-personnelle.component').then (({DemandePersonnelleComponent}) => {

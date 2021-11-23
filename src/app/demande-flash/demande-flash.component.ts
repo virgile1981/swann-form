@@ -2,7 +2,6 @@ import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { FormService } from '../services/form.service';
 import { DemandeFlashForm, IDemandeFlashForm } from '../models/demandeFlashForm.model';
-import { DataUtils, FileLoadError } from '../services/data-utils.service';
 import { AbstractDemandeComponent } from '../demande/abstractDemande.component';
 import { filesCapacityLimited } from '../shared/filesCapacityLimited.directive';
 
@@ -14,7 +13,6 @@ import { filesCapacityLimited } from '../shared/filesCapacityLimited.directive';
 export class DemandeFlashComponent  extends AbstractDemandeComponent  {
  
   villes: string[] = ["Paris","Toulouse","Nantes","Brétignolles-sur-Mer"];
-  form: FormGroup;
   progress: number = 0;
   isFormSent = false;
 
@@ -39,7 +37,7 @@ export class DemandeFlashComponent  extends AbstractDemandeComponent  {
 
   ngOnInit(): void {
     //On joint au premier formulaire le formulaire de demande personnelle que l'utilisateur s'apprête à remplir
-    this.form.addControl("demandeForm",this.demandeForm);
+   // this.form.addControl("demandeForm",this.demandeForm);
   }
 
   /**
