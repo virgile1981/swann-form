@@ -1,14 +1,19 @@
 <!-- Le formulaire est en cours d'envoi -->
+<div class="progress form-group" *ngIf="isFormSent && !isEmailSent && !errorServer && progress > 0">
+    <div class="progress-bar progress-bar-striped" role="progressbar" [style.width.%]="progress">
+    </div>
+  </div>
+
 <div class="alert alert-primary" role="alert" *ngIf="isFormSent && !isEmailSent && !errorServer">
-    Connection au serveur en cours. Veuillez patienter... 
+  Connection au serveur en cours. Veuillez patienter... 
 </div>
 
 <!-- Si tout se passe bien afficher ce message-->
-<div class="progress form-group" *ngIf="progress > 0">
-    <div class="progress-bar progress-bar-striped bg-success" role="progressbar" [style.width.%]="progress">
-    </div>
+<div class="progress form-group" *ngIf="isEmailSent">
+  <div class="progress-bar progress-bar-striped bg-success" role="progressbar" [style.width.%]="100">
   </div>
-  
+</div>
+
   <div class="alert alert-success" role="alert" *ngIf="isEmailSent">
     Merci pour ta demande, ton formulaire a bien été enregistré. Tu recevras un message de confirmation sur ton adresse email dans les plus brefs délais.<br> À bientôt !
   </div>
