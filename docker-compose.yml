@@ -6,6 +6,13 @@ services:
     container_name: swann_arts
     env_file:
       - apps/backend/.env
+    networks:
+    - global_private_network
     ports:
-    - "8081:8081"
-    - "465:465"
+    - "8081:8081" #web server
+    - "465:465" #email server
+
+networks:
+  global_private_network:
+    external: true
+    name: global_private_network
