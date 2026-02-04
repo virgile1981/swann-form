@@ -8,9 +8,9 @@ services:
       - apps/backend/.env
     networks:
     - global_private_network
-    ports:
-    - "8081:8081" #web server
-    - "465:465" #email server
+    expose:
+    - "8081" #web server
+    - "465" #email server
 
 networks:
   global_private_network:
