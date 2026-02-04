@@ -14,5 +14,4 @@ services:
 
 networks:
   global_private_network:
-    external: true
     name: global_private_network
