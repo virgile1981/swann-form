@@ -1,50 +1,28 @@
 {
-  "name": "swann-form",
-  "version": "0.0.1",
-  "scripts": {
-    "ng": "ng",
-    "start": "ng serve -o",
-    "build": "ng build",
-    "build:prod": "ng build --prod",
-    "test": "ng test",
-    "lint": "ng lint",
-    "e2e": "ng e2e"
-  },
+  "name": "swann-arts",
+  "version": "1.0.0",
+  "description": "",
   "private": true,
-  "dependencies": {
-    "@angular/animations": "~11.2.10",
-    "@angular/common": "~11.2.10",
-    "@angular/compiler": "~11.2.10",
-    "@angular/core": "~11.2.10",
-    "@angular/forms": "~11.2.10",
-    "@angular/platform-browser": "~11.2.10",
-    "@angular/platform-browser-dynamic": "~11.2.10",
-    "@angular/router": "~11.2.10",
-    "bootstrap": "^5.1.3",
-    "rxjs": "~6.6.0",
-    "tslib": "^2.0.0",
-    "zone.js": "~0.11.3"
-  },
+  "workspaces": [
+    "apps/*"
+  ],
+  "packageManager": "npm@11.6.1",
+  "keywords": [],
+  "author": "Virgile Bourse",
+  "license": "ISC",
+  "type": "commonjs",
   "devDependencies": {
-    "@angular-devkit/build-angular": "~0.1102.9",
-    "@angular/cli": "~11.2.9",
-    "@angular/compiler-cli": "~11.2.10",
-    "@types/jasmine": "~3.6.0",
-    "@types/node": "^12.11.1",
-    "@types/shelljs": "^0.8.9",
-    "codelyzer": "^6.0.0",
-    "jasmine-core": "~3.6.0",
-    "jasmine-spec-reporter": "~5.0.0",
-    "karma": "~6.1.0",
-    "karma-chrome-launcher": "~3.1.0",
-    "karma-coverage": "~2.0.3",
-    "karma-jasmine": "~4.0.0",
-    "karma-jasmine-html-reporter": "^1.5.0",
-    "protractor": "~7.0.0",
-    "rimraf": "^3.0.2",
-    "shelljs": "^0.8.4",
-    "ts-node": "^8.3.0",
-    "tslint": "~6.1.0",
-    "typescript": "~4.1.5"
+    "turbo": "^2.6.0"
+  },
+  "scripts": {
+    "copy-resources": "ts-node scripts/copy-resources.ts",
+    "build": "npm run build --workspaces",
+    "start:backend": "npm --workspace apps/backend start",
+    "start:frontend": "npm --workspace apps/frontend start",
+    "start": "turbo run start"
+  },
+  "dependencies": {
+    "dotenv": "^17.2.3",
+    "puppeteer": "^24.36.1"
   }
 }

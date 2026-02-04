@@ -4,20 +4,15 @@
     // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
     "version": "0.2.0",
     "configurations": [
-    {
-        "name": "Tests Karma",
-        "request": "launch",
-        "type": "pwa-chrome",
-        "runtimeExecutable": "npm",
-        "runtimeArgs": ["test"]
-    },
         {
             "name": "Launch via npm",
             "type": "node",
             "request": "launch",
-            "cwd": "${workspaceFolder}/server",
+            "cwd": "${workspaceFolder}/apps/backend",
             "runtimeExecutable": "npm",
-            "runtimeArgs": ["start"]
+            "runtimeArgs": [
+                "start"
+            ]
         }
     ]
 }
