@@ -1,9 +1,9 @@
 import { DemandeDTO } from "./demande.dto";
 import { FileDTO } from "./file.dto";
 
-export class DemandeFlashDTO extends DemandeDTO{
-    villeValues = ["Paris","Toulouse","Nantes","Brétignolles-sur-Mer"];
-    planificationValues = ["Le plus tôt possible","Le mois prochain","L'année prochaine"];
+export class DemandeFlashDTO extends DemandeDTO {
+    villeValues = ["Paris", "Toulouse", "Saint-Hilaire-de-Riez"];
+    planificationValues = ["Le plus tôt possible", "Le mois prochain", "L'année prochaine"];
     descriptif?: string;
     ville?: string;
     modifications?: string;
@@ -15,14 +15,14 @@ export class DemandeFlashDTO extends DemandeDTO{
     planification?: string;
 
     isAutreVille(): boolean {
-        if(this.ville != null) { 
+        if (this.ville != null) {
             return !this.villeValues.includes(this.ville);
         }
         return false;
     }
 
     isAutrePlanification(): boolean {
-        if(this.planification != null) {
+        if (this.planification != null) {
             return !this.planificationValues.includes(this.planification);
         }
         return false;
@@ -33,7 +33,7 @@ export class DemandeFlashDTO extends DemandeDTO{
     }
 
     inject(demandeFlashDTO: DemandeFlashDTO): DemandeFlashDTO {
-        super.inject(demandeFlashDTO);        
+        super.inject(demandeFlashDTO);
         this.descriptif = demandeFlashDTO.descriptif;
         this.ville = demandeFlashDTO.ville;
         this.modifications = demandeFlashDTO.modifications;
@@ -41,15 +41,15 @@ export class DemandeFlashDTO extends DemandeDTO{
         this.imagesEmplacement = demandeFlashDTO.imagesEmplacement;
         this.taille = demandeFlashDTO.taille;
         this.planification = demandeFlashDTO.planification;
-        return this;       
+        return this;
     }
 
     villesWithMark(): any[] {
-        return this.valuesWithSelectMark(this.villeValues,this.ville);
+        return this.valuesWithSelectMark(this.villeValues, this.ville);
     }
 
     planificationsWithMark(): any[] {
-        return this.valuesWithSelectMark(this.planificationValues,this.planification); 
+        return this.valuesWithSelectMark(this.planificationValues, this.planification);
     }
 
 }

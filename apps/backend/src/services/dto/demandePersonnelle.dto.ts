@@ -1,10 +1,10 @@
 import { DemandeDTO } from "./demande.dto";
-import {FileDTO} from "./file.dto";
+import { FileDTO } from "./file.dto";
 
 
-export class DemandePersonnelleDTO extends DemandeDTO{
-    villeValues = ["Paris","Toulouse","Nantes","Brétignolles-sur-Mer"];
-    planificationValues = ["Le plus tôt possible","Le mois prochain","L'année prochaine"];
+export class DemandePersonnelleDTO extends DemandeDTO {
+    villeValues = ["Paris", "Toulouse", "Saint-Hilaire-de-Riez"];
+    planificationValues = ["Le plus tôt possible", "Le mois prochain", "L'année prochaine"];
     descriptif?: string;
     ville?: string;
     idee?: string;
@@ -17,14 +17,14 @@ export class DemandePersonnelleDTO extends DemandeDTO{
     planification?: string;
 
     isAutreVille(): boolean {
-        if(this.ville != null) { 
+        if (this.ville != null) {
             return !this.villeValues.includes(this.ville);
         }
         return false;
     }
 
     isAutrePlanification(): boolean {
-        if(this.planification != null) {
+        if (this.planification != null) {
             return !this.planificationValues.includes(this.planification);
         }
         return false;
@@ -35,7 +35,7 @@ export class DemandePersonnelleDTO extends DemandeDTO{
     }
 
     inject(demandePersonnelleDTO: DemandePersonnelleDTO): DemandePersonnelleDTO {
-        super.inject(demandePersonnelleDTO);        
+        super.inject(demandePersonnelleDTO);
         this.descriptif = demandePersonnelleDTO.descriptif;
         this.ville = demandePersonnelleDTO.ville;
         this.idee = demandePersonnelleDTO.idee;
@@ -44,15 +44,15 @@ export class DemandePersonnelleDTO extends DemandeDTO{
         this.taille = demandePersonnelleDTO.taille;
         this.budget = demandePersonnelleDTO.budget;
         this.planification = demandePersonnelleDTO.planification;
-        return this;       
+        return this;
     }
 
     villesWithMark(): any[] {
-        return this.valuesWithSelectMark(this.villeValues,this.ville);
+        return this.valuesWithSelectMark(this.villeValues, this.ville);
     }
 
     planificationsWithMark(): any[] {
-        return this.valuesWithSelectMark(this.planificationValues,this.planification); 
+        return this.valuesWithSelectMark(this.planificationValues, this.planification);
     }
 
 }

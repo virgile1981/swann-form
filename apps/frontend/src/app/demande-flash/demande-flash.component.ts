@@ -10,9 +10,9 @@ import { filesCapacityLimited } from '../shared/filesCapacityLimited.directive';
   templateUrl: './demande-flash.component.html',
   styleUrls: ['./demande-flash.component.scss']
 })
-export class DemandeFlashComponent  extends AbstractDemandeComponent  {
- 
-  villes: string[] = ["Paris","Toulouse","Nantes","Brétignolles-sur-Mer"];
+export class DemandeFlashComponent extends AbstractDemandeComponent {
+
+  villes: string[] = ["Paris", "Toulouse", "Saint-Hilaire-de-Riez"];
   progress: number = 0;
   isFormSent = false;
 
@@ -22,32 +22,32 @@ export class DemandeFlashComponent  extends AbstractDemandeComponent  {
 
   demandeForm = this.fb.group({
     descriptif: '',
-    ville: [null,Validators.required],
-    modifications: ['',Validators.required],
-    imagesFlash: [null,Validators.required],
-    imagesEmplacement: [null,Validators.required],
-    taille: [null,Validators.required],
-    planification: [null,Validators.required]
+    ville: [null, Validators.required],
+    modifications: ['', Validators.required],
+    imagesFlash: [null, Validators.required],
+    imagesEmplacement: [null, Validators.required],
+    taille: [null, Validators.required],
+    planification: [null, Validators.required]
   });
 
-  constructor(private fb: FormBuilder,protected formService: FormService) {
+  constructor(private fb: FormBuilder, protected formService: FormService) {
     super(formService);
     this.demandeForm.setValidators(filesCapacityLimited());
   }
 
   ngOnInit(): void {
     //On joint au premier formulaire le formulaire de demande personnelle que l'utilisateur s'apprête à remplir
-   // this.form.addControl("demandeForm",this.demandeForm);
+    // this.form.addControl("demandeForm",this.demandeForm);
   }
 
   /**
    * 
    * @returns retourne vrai si le radio bouton "Autre" est selectionné pour permettre d'activer le champ de saisie autre ville
    */
-   autreVilleButtonSelected() : boolean {
-    if(this.autreVilleButton != null) {
+  autreVilleButtonSelected(): boolean {
+    if (this.autreVilleButton != null) {
       return this.autreVilleButton.nativeElement.checked;
-    } 
+    }
     return false;
   }
 
@@ -56,28 +56,28 @@ export class DemandeFlashComponent  extends AbstractDemandeComponent  {
    * @returns retourne vrai si le radio bouton "Autre" est selectionné pour permettre d'activer le champ de saisie autre buget
    */
   autreTailleButtonSelected(): boolean {
-    if(this.autreTailleButton != null) {
+    if (this.autreTailleButton != null) {
       return this.autreTailleButton.nativeElement.checked;
     }
     return false;
   }
 
   autrePlanificationButtonSelected(): boolean {
-    if(this.autrePlanificationButton != null) {
+    if (this.autrePlanificationButton != null) {
       return this.autrePlanificationButton.nativeElement.checked;
     }
     return false;
   }
 
   protected createFromForm(): IDemandeFlashForm {
-    
+
     return {
       ...new DemandeFlashForm(),
       nom: this.form.get(['nom'])!.value,
       email: this.form.get(['email'])!.value,
       majeur: this.form.get(['majeur'])!.value,
       demande: this.form.get(['demande'])!.value,
-      
+
       descriptif: this.demandeForm.get(['descriptif'])!.value,
       ville: this.demandeForm.get(['ville'])!.value,
       modifications: this.demandeForm.get(['modifications'])!.value,

@@ -12,9 +12,9 @@ import { filesCapacityLimited } from '../shared/filesCapacityLimited.directive';
   templateUrl: './demande-personnelle.component.html',
   styleUrls: ['./demande-personnelle.component.scss']
 })
-export class DemandePersonnelleComponent  extends AbstractDemandeComponent  {
+export class DemandePersonnelleComponent extends AbstractDemandeComponent {
 
-  villes: string[] = ["Paris","Toulouse","Nantes","Brétignolles-sur-Mer"];
+  villes: string[] = ["Paris", "Toulouse", "Saint-Hilaire-de-Riez"];
   form: FormGroup;
   progress: number = 0;
   isFormSent = false;
@@ -25,34 +25,34 @@ export class DemandePersonnelleComponent  extends AbstractDemandeComponent  {
 
   demandeForm = this.fb.group({
     descriptif: '',
-    ville: [null,Validators.required],
-    idee: ['',Validators.required],
-    imagesInspiration: [null,Validators.required],
-    imagesEmplacement: [null,Validators.required],
-    taille: ['',Validators.required],
-    budget: [null,Validators.required],
-    planification: [null,Validators.required]
+    ville: [null, Validators.required],
+    idee: ['', Validators.required],
+    imagesInspiration: [null, Validators.required],
+    imagesEmplacement: [null, Validators.required],
+    taille: ['', Validators.required],
+    budget: [null, Validators.required],
+    planification: [null, Validators.required]
   });
 
 
- constructor(private fb: FormBuilder, formService: FormService,protected dataUtils: DataUtils) {
-   super(formService);
-   this.demandeForm.setValidators(filesCapacityLimited());
- }
+  constructor(private fb: FormBuilder, formService: FormService, protected dataUtils: DataUtils) {
+    super(formService);
+    this.demandeForm.setValidators(filesCapacityLimited());
+  }
 
   ngOnInit(): void {
     //On joint au premier formulaire le formulaire de demande personnelle que l'utilisateur s'apprête à remplir
-    this.form.addControl("demandeForm",this.demandeForm);
+    this.form.addControl("demandeForm", this.demandeForm);
   }
 
   /**
    * 
    * @returns retourne vrai si le radio bouton "Autre" est selectionné pour permettre d'activer le champ de saisie autre ville
    */
-  autreVilleButtonSelected() : boolean {
-    if(this.autreVilleButton != null) {
+  autreVilleButtonSelected(): boolean {
+    if (this.autreVilleButton != null) {
       return this.autreVilleButton.nativeElement.checked;
-    } 
+    }
     return false;
   }
 
@@ -61,28 +61,28 @@ export class DemandePersonnelleComponent  extends AbstractDemandeComponent  {
    * @returns retourne vrai si le radio bouton "Autre" est selectionné pour permettre d'activer le champ de saisie autre buget
    */
   autreBudgetButtonSelected(): boolean {
-    if(this.autreBudgetButton != null) {
+    if (this.autreBudgetButton != null) {
       return this.autreBudgetButton.nativeElement.checked;
     }
     return false;
   }
 
   autrePlanificationButtonSelected(): boolean {
-    if(this.autrePlanificationButton != null) {
+    if (this.autrePlanificationButton != null) {
       return this.autrePlanificationButton.nativeElement.checked;
     }
     return false;
   }
 
   protected createFromForm(): IDemandePersonnelleForm {
-    
+
     return {
       ...new DemandePersonnelleForm(),
       nom: this.form.get(['nom'])!.value,
       email: this.form.get(['email'])!.value,
       majeur: this.form.get(['majeur'])!.value,
       demande: this.form.get(['demande'])!.value,
-      
+
       descriptif: this.demandeForm.get(['descriptif'])!.value,
       ville: this.demandeForm.get(['ville'])!.value,
       idee: this.demandeForm.get(['idee'])!.value,
